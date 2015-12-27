@@ -22,6 +22,7 @@ public class Main {
         first.setActive(true);
         //second.setActive(true);
         //testing
+        //test2
         third.setActive(true);
 
         ArrayTaskList testList = new ArrayTaskList();
