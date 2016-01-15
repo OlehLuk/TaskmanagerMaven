@@ -7,30 +7,30 @@ import java.awt.*;
 
 public class FormTaskmanager extends JFrame {
     //for lists of tasks
-    JList allTabList;
+    private JList allTabList;
 
 
     private JTabbedPane tabbedPane1 = new JTabbedPane(JTabbedPane.TOP);
 
     //JPanels
     private JPanel contentMain;
-    JPanel rightPanel;
-    JPanel allTasksTab;
-    JPanel calendarTab;
-    JPanel calendarBottomButtons;
-    JPanel calendarDatesPanel;
-    JPanel calendarStartDate;
-    JPanel calendarEndDate;
-    JPanel bottomPanel;
-    JPanel bottomButtonsPanel;
-    JPanel bottomTitlePanel;
-    JPanel isRepeatPanel;
-    JPanel startTimePanel;
-    JPanel endTimePanel;
-    JPanel intervalTimePanel;
+    private JPanel rightPanel;
+    private JPanel allTasksTab;
+    private JPanel calendarTab;
+    private JPanel calendarBottomButtons;
+    private JPanel calendarDatesPanel;
+    private JPanel calendarStartDate;
+    private JPanel calendarEndDate;
+    private JPanel bottomPanel;
+    private JPanel bottomButtonsPanel;
+    private JPanel bottomTitlePanel;
+    private JPanel isRepeatPanel;
+    private JPanel startTimePanel;
+    private JPanel endTimePanel;
+    private JPanel intervalTimePanel;
 
     //scroll wrappers
-    JScrollPane calendarTableScroll;
+    private JScrollPane calendarTableScroll;
 
 
     private JTable calendarTable;
@@ -45,38 +45,38 @@ public class FormTaskmanager extends JFrame {
     //fields for reading time
 
     //start time
-    JTextField editorStDateHours;
-    JTextField editorStDateMins;
-    JTextField editorStDateDay;
-    JTextField editorStDateMonth;
-    JTextField editorStDateYear;
+    private JSpinner editorStDateHours;
+    private JSpinner editorStDateMins;
+    private JSpinner editorStDateDay;
+    private JSpinner editorStDateMonth;
+    private JSpinner editorStDateYear;
 
     //end time
-    JTextField editorEndDateHours;
-    JTextField editorEndDateMins;
-    JTextField editorEndDateDay;
-    JTextField editorEndDateMonth;
-    JTextField editorEndDateYear;
+    private JSpinner editorEndDateHours;
+    private JSpinner editorEndDateMins;
+    private JSpinner editorEndDateDay;
+    private JSpinner editorEndDateMonth;
+    private JSpinner editorEndDateYear;
 
     //interval
-    JTextField editorIntervalHours;
-    JTextField editorIntervalMins;
-    JTextField editorIntervalDay;
-    JTextField editorIntervalMonth;
-    JTextField editorIntervalYear;
+    private JSpinner editorIntervalHours;
+    private JSpinner editorIntervalMins;
+    private JSpinner editorIntervalDay;
+    private JSpinner editorIntervalMonth;
+    private JSpinner editorIntervalYear;
 
     //start date for calendar
-    JTextField calStDateHours ;
-    JTextField calStDateMins ;
-    JTextField calStDateDay ;
-    JTextField calStDateMonth;
-    JTextField calStDateYear;
+    private JSpinner calStDateHours ;
+    private JSpinner calStDateMins ;
+    private JSpinner calStDateDay ;
+    private JSpinner calStDateMonth;
+    private JSpinner calStDateYear;
     //end date for calendar
-    JTextField calEndDateHours;
-    JTextField calEndDateMins;
-    JTextField calEndDateDay;
-    JTextField calEndDateMonth;
-    JTextField calEndDateYear;
+    private JSpinner calEndDateHours;
+    private JSpinner calEndDateMins;
+    private JSpinner calEndDateDay;
+    private JSpinner calEndDateMonth;
+    private JSpinner calEndDateYear;
 
     //checkbox to check whether task is active
     private JCheckBox activeCheckBox = new JCheckBox("Active");
@@ -138,14 +138,16 @@ public class FormTaskmanager extends JFrame {
         calendarBottomButtons.add(searchButton);
         calendarDatesPanel = new JPanel();
         calendarDatesPanel.setLayout(new GridLayout(2,1));
+
+        //create SpinnerNumberModel model = new SpinnerNumberModel(500.0, 0.0, 1000.0, 0.625); ?
         calendarStartDate = new JPanel();
             calendarStartDate.setLayout(new FlowLayout());
             JLabel calStDateLable = new JLabel("Start date: ");
-            calStDateHours = new JTextField(3);
-            calStDateMins = new JTextField(3);
-            calStDateDay = new JTextField(3);
-            calStDateMonth = new JTextField(3);
-            calStDateYear = new JTextField(5);
+            calStDateHours = new JSpinner();
+            calStDateMins = new JSpinner();
+            calStDateDay = new JSpinner();
+            calStDateMonth = new JSpinner();
+            calStDateYear = new JSpinner();
             calendarStartDate.add(calStDateLable);
             calendarStartDate.add(calStDateHours);
             calendarStartDate.add(new JLabel(" : "));
@@ -162,11 +164,11 @@ public class FormTaskmanager extends JFrame {
             calendarEndDate.setLayout(new FlowLayout());
             JLabel calEndDateLable = new JLabel("End date: ");
             calEndDateLable.setPreferredSize(calStDateLable.getPreferredSize());
-            calEndDateHours = new JTextField(3);
-            calEndDateMins = new JTextField(3);
-            calEndDateDay = new JTextField(3);
-            calEndDateMonth = new JTextField(3);
-            calEndDateYear = new JTextField(5);
+            calEndDateHours = new JSpinner();
+            calEndDateMins = new JSpinner();
+            calEndDateDay = new JSpinner();
+            calEndDateMonth = new JSpinner();
+            calEndDateYear = new JSpinner();
             calendarEndDate.add(calEndDateLable);
             calendarEndDate.add(calEndDateHours);
             calendarEndDate.add(new JLabel(" : "));
@@ -212,11 +214,11 @@ public class FormTaskmanager extends JFrame {
         bottomPanel.add(isRepeatPanel);
             startTimePanel = new JPanel();
             startTimePanel.setLayout(new FlowLayout());
-            editorStDateHours = new JTextField(3);
-            editorStDateMins = new JTextField(3);
-            editorStDateDay = new JTextField(3);
-            editorStDateMonth = new JTextField(3);
-            editorStDateYear = new JTextField(5);
+            editorStDateHours = new JSpinner();
+            editorStDateMins = new JSpinner();
+            editorStDateDay = new JSpinner();
+            editorStDateMonth = new JSpinner();
+            editorStDateYear = new JSpinner();
             startTimePanel.add(new JLabel("Start time: "));
             startTimePanel.add(editorStDateHours);
             startTimePanel.add(new JLabel(" : "));
@@ -231,11 +233,11 @@ public class FormTaskmanager extends JFrame {
         bottomPanel.add(startTimePanel);
             endTimePanel = new JPanel();
             endTimePanel.setLayout(new FlowLayout());
-            editorEndDateHours = new JTextField(3);
-            editorEndDateMins = new JTextField(3);
-            editorEndDateDay = new JTextField(3);
-            editorEndDateMonth = new JTextField(3);
-            editorEndDateYear = new JTextField(5);
+            editorEndDateHours = new JSpinner();
+            editorEndDateMins = new JSpinner();
+            editorEndDateDay = new JSpinner();
+            editorEndDateMonth = new JSpinner();
+            editorEndDateYear = new JSpinner();
             endTimePanel.add(new JLabel("End time: "));
             endTimePanel.add(editorEndDateHours);
             endTimePanel.add(new JLabel(" : "));
@@ -250,11 +252,11 @@ public class FormTaskmanager extends JFrame {
         bottomPanel.add(endTimePanel);
             intervalTimePanel = new JPanel();
             intervalTimePanel.setLayout(new FlowLayout());
-            editorIntervalHours = new JTextField(3);
-            editorIntervalMins = new JTextField(3);
-            editorIntervalDay = new JTextField(3);
-            editorIntervalMonth = new JTextField(3);
-            editorIntervalYear = new JTextField(5);
+            editorIntervalHours = new JSpinner();
+            editorIntervalMins = new JSpinner();
+            editorIntervalDay = new JSpinner();
+            editorIntervalMonth = new JSpinner();
+            editorIntervalYear = new JSpinner();
             intervalTimePanel.add(new JLabel("Execution interval: "));
             intervalTimePanel.add(editorIntervalMins);
             intervalTimePanel.add(new JLabel("m "));
