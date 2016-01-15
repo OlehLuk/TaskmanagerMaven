@@ -71,7 +71,7 @@ public class FormTaskmanager extends JFrame {
         allTasksTab.setLayout(new BorderLayout());
         JList allTabList = new JList(new Object[]{"A", "<html><font color = red>B", "C"});
         allTabList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        allTasksTab.add(new JScrollPane(allTabList), BorderLayout.NORTH);
+        allTasksTab.add(new JScrollPane(allTabList), BorderLayout.CENTER);
 
         //calendar tasks tab creating
         JPanel calendarTab = new JPanel();
@@ -84,15 +84,16 @@ public class FormTaskmanager extends JFrame {
 
         calendarTable = new JTable(data, columnNames);
         calendarTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        calendarTable.setPreferredScrollableViewportSize(new Dimension(100,100));
+        calendarTable.setPreferredScrollableViewportSize(new Dimension(100,150));
         //add table
         JScrollPane calendarTableScroll = new JScrollPane(calendarTable);
-        calendarTab.add(calendarTableScroll, BorderLayout.NORTH);
+        calendarTab.add(calendarTableScroll, BorderLayout.CENTER);
         //create and add bottom buttons
         JPanel calendarBottomButtons = new JPanel();
         calendarBottomButtons.setLayout(new FlowLayout());
         calendarBottomButtons.add(searchButton);
-
+        JPanel calendarDatesPanel = new JPanel();
+        calendarDatesPanel.setLayout(new GridLayout(2,1));
         JPanel calendarStartDate = new JPanel();
             calendarStartDate.setLayout(new FlowLayout());
             JLabel calStDateLable = new JLabel("Start date: ");
@@ -116,6 +117,7 @@ public class FormTaskmanager extends JFrame {
         JPanel calendarEndDate = new JPanel();
             calendarEndDate.setLayout(new FlowLayout());
             JLabel calEndDateLable = new JLabel("End date: ");
+            calEndDateLable.setPreferredSize(calStDateLable.getPreferredSize());
             JTextField calEndDateHours = new JTextField(3);
             JTextField calEndDateMins = new JTextField(3);
             JTextField calEndDateDay = new JTextField(3);
@@ -133,8 +135,9 @@ public class FormTaskmanager extends JFrame {
             calendarEndDate.add(calEndDateYear);
             calendarEndDate.add(new JLabel("y"));
 
-        calendarBottomButtons.add(calendarStartDate);
-        calendarBottomButtons.add(calendarEndDate);
+        calendarDatesPanel.add(calendarStartDate);
+        calendarDatesPanel.add(calendarEndDate);
+        calendarBottomButtons.add(calendarDatesPanel);
         calendarTab.add(calendarBottomButtons, BorderLayout.SOUTH);
         tabbedPane1.addTab("All tasks", allTasksTab);
         tabbedPane1.addTab("Calendar", calendarTab);
@@ -227,8 +230,9 @@ public class FormTaskmanager extends JFrame {
         setContentPane(contentMain);
 
         //setSize(750,500);
-        //setResizable(false);
         pack();
+        setResizable(false);
+
     }
 
     public static void main(String[] args) {
