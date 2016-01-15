@@ -140,14 +140,15 @@ public class FormTaskmanager extends JFrame {
         calendarDatesPanel.setLayout(new GridLayout(2,1));
 
         //create SpinnerNumberModel model = new SpinnerNumberModel(500.0, 0.0, 1000.0, 0.625); ?
+
         calendarStartDate = new JPanel();
             calendarStartDate.setLayout(new FlowLayout());
             JLabel calStDateLable = new JLabel("Start date: ");
-            calStDateHours = new JSpinner();
-            calStDateMins = new JSpinner();
-            calStDateDay = new JSpinner();
-            calStDateMonth = new JSpinner();
-            calStDateYear = new JSpinner();
+            calStDateHours = new JSpinner(new SpinnerNumberModel(12, 0, 23, 1));
+            calStDateMins = new JSpinner(new SpinnerNumberModel(30, 0, 59, 1));
+            calStDateDay = new JSpinner(new SpinnerNumberModel(15, 1, 31, 1));
+            calStDateMonth = new JSpinner(new SpinnerNumberModel(2, 1, 12, 1));
+            calStDateYear = new JSpinner(new SpinnerNumberModel(2016, 1970, 3000, 1));
             calendarStartDate.add(calStDateLable);
             calendarStartDate.add(calStDateHours);
             calendarStartDate.add(new JLabel(" : "));
@@ -164,11 +165,11 @@ public class FormTaskmanager extends JFrame {
             calendarEndDate.setLayout(new FlowLayout());
             JLabel calEndDateLable = new JLabel("End date: ");
             calEndDateLable.setPreferredSize(calStDateLable.getPreferredSize());
-            calEndDateHours = new JSpinner();
-            calEndDateMins = new JSpinner();
-            calEndDateDay = new JSpinner();
-            calEndDateMonth = new JSpinner();
-            calEndDateYear = new JSpinner();
+            calEndDateHours = new JSpinner(new SpinnerNumberModel(12, 0, 23, 1));
+            calEndDateMins = new JSpinner(new SpinnerNumberModel(30, 0, 59, 1));
+            calEndDateDay = new JSpinner(new SpinnerNumberModel(15, 1, 31, 1));
+            calEndDateMonth = new JSpinner(new SpinnerNumberModel(2, 1, 12, 1));
+            calEndDateYear = new JSpinner(new SpinnerNumberModel(2016, 1970, 3000, 1));
             calendarEndDate.add(calEndDateLable);
             calendarEndDate.add(calEndDateHours);
             calendarEndDate.add(new JLabel(" : "));
@@ -214,11 +215,11 @@ public class FormTaskmanager extends JFrame {
         bottomPanel.add(isRepeatPanel);
             startTimePanel = new JPanel();
             startTimePanel.setLayout(new FlowLayout());
-            editorStDateHours = new JSpinner();
-            editorStDateMins = new JSpinner();
-            editorStDateDay = new JSpinner();
-            editorStDateMonth = new JSpinner();
-            editorStDateYear = new JSpinner();
+            editorStDateHours = new JSpinner(new SpinnerNumberModel(12, 0, 23, 1));
+            editorStDateMins = new JSpinner(new SpinnerNumberModel(30, 0, 59, 1));
+            editorStDateDay = new JSpinner(new SpinnerNumberModel(15, 1, 31, 1));
+            editorStDateMonth = new JSpinner(new SpinnerNumberModel(2, 1, 12, 1));
+            editorStDateYear = new JSpinner(new SpinnerNumberModel(2016, 1970, 3000, 1));
             startTimePanel.add(new JLabel("Start time: "));
             startTimePanel.add(editorStDateHours);
             startTimePanel.add(new JLabel(" : "));
@@ -233,11 +234,11 @@ public class FormTaskmanager extends JFrame {
         bottomPanel.add(startTimePanel);
             endTimePanel = new JPanel();
             endTimePanel.setLayout(new FlowLayout());
-            editorEndDateHours = new JSpinner();
-            editorEndDateMins = new JSpinner();
-            editorEndDateDay = new JSpinner();
-            editorEndDateMonth = new JSpinner();
-            editorEndDateYear = new JSpinner();
+            editorEndDateHours = new JSpinner(new SpinnerNumberModel(12, 0, 23, 1));
+            editorEndDateMins = new JSpinner(new SpinnerNumberModel(30, 0, 59, 1));
+            editorEndDateDay = new JSpinner(new SpinnerNumberModel(15, 1, 31, 1));
+            editorEndDateMonth = new JSpinner(new SpinnerNumberModel(2, 1, 12, 1));
+            editorEndDateYear = new JSpinner(new SpinnerNumberModel(2016, 1970, 3000, 1));
             endTimePanel.add(new JLabel("End time: "));
             endTimePanel.add(editorEndDateHours);
             endTimePanel.add(new JLabel(" : "));
@@ -252,11 +253,11 @@ public class FormTaskmanager extends JFrame {
         bottomPanel.add(endTimePanel);
             intervalTimePanel = new JPanel();
             intervalTimePanel.setLayout(new FlowLayout());
-            editorIntervalHours = new JSpinner();
-            editorIntervalMins = new JSpinner();
-            editorIntervalDay = new JSpinner();
-            editorIntervalMonth = new JSpinner();
-            editorIntervalYear = new JSpinner();
+            editorIntervalHours = new JSpinner(new SpinnerNumberModel(0, 0, 23, 1));
+            editorIntervalMins = new JSpinner(new SpinnerNumberModel(0, 0, 59, 1));
+            editorIntervalDay = new JSpinner(new SpinnerNumberModel(0, 0, 31, 1));
+            editorIntervalMonth = new JSpinner(new SpinnerNumberModel(0, 0, 12, 1));
+            editorIntervalYear = new JSpinner(new SpinnerNumberModel(0, 0, 5, 1));
             intervalTimePanel.add(new JLabel("Execution interval: "));
             intervalTimePanel.add(editorIntervalMins);
             intervalTimePanel.add(new JLabel("m "));
@@ -270,20 +271,26 @@ public class FormTaskmanager extends JFrame {
             intervalTimePanel.add(new JLabel("y"));
         bottomPanel.add(intervalTimePanel);
 
+        ButtonGroup radios = new ButtonGroup();
+        radios.add(repeatableRadioButton);
+        radios.add(nonrepeatableRadioButton);
 
 
         contentMain.add(bottomPanel, BorderLayout.SOUTH);
         setContentPane(contentMain);
 
-        //setSize(750,500);
         pack();
         setResizable(false);
 
     }
+    public void startGUI() {
+        this.setVisible(true);
+    }
 
     public static void main(String[] args) {
+
             FormTaskmanager test = new FormTaskmanager();
-            test.setVisible(true);
+            test.startGUI();
     }
 }
 
