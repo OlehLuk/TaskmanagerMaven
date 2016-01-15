@@ -13,7 +13,4 @@ public class MainView {
     public void showGUI() {
         this.appWindow.setVisible(true);
     }
-
-
-
 }
