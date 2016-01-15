@@ -11,9 +11,8 @@ import java.util.Date;
 
 public class FormTaskmanager extends JFrame {
     //for lists of tasks
-    DefaultListModel listModel = new DefaultListModel();
-    private JList allTabList = new JList(listModel);
-
+    private JList allTabList = new JList();
+    DefaultListModel listModel;
 
     private JTabbedPane tabbedPane1 = new JTabbedPane(JTabbedPane.TOP);
 
@@ -103,6 +102,9 @@ public class FormTaskmanager extends JFrame {
         //allTasksTab creating
         allTasksTab = new JPanel();
         allTasksTab.setLayout(new BorderLayout());
+
+        listModel = new DefaultListModel();
+        allTabList.setModel(listModel);
 
 
         allTabList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -233,8 +235,18 @@ public class FormTaskmanager extends JFrame {
         this.setVisible(true);
     }
 
-    public Object getStDate(){
-        return this.editorStDate.getValue();
+    public Date getStDate(){
+        return (Date) this.editorStDate.getValue();
+    };
+
+    public Date getEndDate(){
+        return (Date) this.editorEndDate.getValue();
+    };
+    public Date getCalendarStDate(){
+        return (Date) this.calStDate.getValue();
+    };
+    public Date getCalendarEndDate(){
+        return (Date) this.calEndDate.getValue();
     };
 
     public void setAllTasksList(TaskList list) {
