@@ -16,31 +16,42 @@ public class MainModel {
             TaskIO.readBinary(taskList,file);
         }
         catch(IOException e){
-
+            //log
         }
-
     }
 
-    public void add(String title, Date time, boolean active) {
+    public void save() throws IOException {
+        try{
+            TaskIO.writeBinary(taskList,file);
+        }
+        catch(IOException e){
+            //log
+            throw new IOException("Something went wrong. IOException occured");
+        }
+    }
+
+
+
+    public void add(String title, Date time, boolean active) throws IllegalArgumentException {
         Task task = new Task(title, time);
         task.setActive(active);
         taskList.add(task);
     }
 
-    public void add(String title, Date start, Date end, int interval, boolean active) {
+    public void add(String title, Date start, Date end, int interval, boolean active) throws IllegalArgumentException {
         Task task = new Task(title, start, end, interval);
         task.setActive(active);
         taskList.add(task);
     }
 
-    public void edit(Task edited, String title, Date time, boolean active) {
+    public void edit(Task edited, String title, Date time, boolean active) throws IllegalArgumentException {
         Task task = new Task(title, time);
         task.setActive(active);
         this.taskList.remove(edited);
         taskList.add(task);
     }
 
-    public void edit(Task edited, String title, Date start, Date end, int interval, boolean active) {
+    public void edit(Task edited, String title, Date start, Date end, int interval, boolean active)throws IllegalArgumentException {
         Task task = new Task(title, start, end, interval);
         task.setActive(active);
         this.taskList.remove(edited);
