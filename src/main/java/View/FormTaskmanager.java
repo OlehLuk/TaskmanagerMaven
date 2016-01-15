@@ -7,7 +7,31 @@ import java.awt.*;
 
 public class FormTaskmanager extends JFrame {
     //for lists of tasks
+    private JList allTabList;
+
+
     private JTabbedPane tabbedPane1 = new JTabbedPane(JTabbedPane.TOP);
+
+    //JPanels
+    private JPanel contentMain;
+    private JPanel rightPanel;
+    private JPanel allTasksTab;
+    private JPanel calendarTab;
+    private JPanel calendarBottomButtons;
+    private JPanel calendarDatesPanel;
+    private JPanel calendarStartDate;
+    private JPanel calendarEndDate;
+    private JPanel bottomPanel;
+    private JPanel bottomButtonsPanel;
+    private JPanel bottomTitlePanel;
+    private JPanel isRepeatPanel;
+    private JPanel startTimePanel;
+    private JPanel endTimePanel;
+    private JPanel intervalTimePanel;
+
+    //scroll wrappers
+    private JScrollPane calendarTableScroll;
+
 
     private JTable calendarTable;
 
@@ -21,17 +45,38 @@ public class FormTaskmanager extends JFrame {
     //fields for reading time
 
     //start time
-
+    private JSpinner editorStDateHours;
+    private JSpinner editorStDateMins;
+    private JSpinner editorStDateDay;
+    private JSpinner editorStDateMonth;
+    private JSpinner editorStDateYear;
 
     //end time
-
+    private JSpinner editorEndDateHours;
+    private JSpinner editorEndDateMins;
+    private JSpinner editorEndDateDay;
+    private JSpinner editorEndDateMonth;
+    private JSpinner editorEndDateYear;
 
     //interval
-
+    private JSpinner editorIntervalHours;
+    private JSpinner editorIntervalMins;
+    private JSpinner editorIntervalDay;
+    private JSpinner editorIntervalMonth;
+    private JSpinner editorIntervalYear;
 
     //start date for calendar
-
+    private JSpinner calStDateHours ;
+    private JSpinner calStDateMins ;
+    private JSpinner calStDateDay ;
+    private JSpinner calStDateMonth;
+    private JSpinner calStDateYear;
     //end date for calendar
+    private JSpinner calEndDateHours;
+    private JSpinner calEndDateMins;
+    private JSpinner calEndDateDay;
+    private JSpinner calEndDateMonth;
+    private JSpinner calEndDateYear;
 
     //checkbox to check whether task is active
     private JCheckBox activeCheckBox = new JCheckBox("Active");
@@ -51,11 +96,11 @@ public class FormTaskmanager extends JFrame {
         super("Taskmanager");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JPanel contentMain = new JPanel();
+        contentMain = new JPanel();
         contentMain.setLayout(new BorderLayout());
 
         //right panel(info)
-        JPanel rightPanel = new JPanel();
+        rightPanel = new JPanel();
 
         rightPanel.add(taskInfo);
         rightPanel.setLayout(new FlowLayout());
@@ -66,15 +111,14 @@ public class FormTaskmanager extends JFrame {
 
         //center panel - tabs
         //allTasksTab creating
-        //tabbedPane1.setMinimumSize(new Dimension(10,10));
-        JPanel allTasksTab = new JPanel();
+        allTasksTab = new JPanel();
         allTasksTab.setLayout(new BorderLayout());
-        JList allTabList = new JList(new Object[]{"A", "<html><font color = red>B", "C"});
+        allTabList = new JList(new Object[]{"A", "<html><font color = red>B", "C"});
         allTabList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         allTasksTab.add(new JScrollPane(allTabList), BorderLayout.CENTER);
 
         //calendar tasks tab creating
-        JPanel calendarTab = new JPanel();
+        calendarTab = new JPanel();
         calendarTab.setLayout(new BorderLayout());
         String[] columnNames = {
                 "Date",
@@ -86,22 +130,25 @@ public class FormTaskmanager extends JFrame {
         calendarTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         calendarTable.setPreferredScrollableViewportSize(new Dimension(100,150));
         //add table
-        JScrollPane calendarTableScroll = new JScrollPane(calendarTable);
+        calendarTableScroll = new JScrollPane(calendarTable);
         calendarTab.add(calendarTableScroll, BorderLayout.CENTER);
         //create and add bottom buttons
-        JPanel calendarBottomButtons = new JPanel();
+        calendarBottomButtons = new JPanel();
         calendarBottomButtons.setLayout(new FlowLayout());
         calendarBottomButtons.add(searchButton);
-        JPanel calendarDatesPanel = new JPanel();
+        calendarDatesPanel = new JPanel();
         calendarDatesPanel.setLayout(new GridLayout(2,1));
-        JPanel calendarStartDate = new JPanel();
+
+        //create SpinnerNumberModel model = new SpinnerNumberModel(500.0, 0.0, 1000.0, 0.625); ?
+
+        calendarStartDate = new JPanel();
             calendarStartDate.setLayout(new FlowLayout());
             JLabel calStDateLable = new JLabel("Start date: ");
-            JTextField calStDateHours = new JTextField(3);
-            JTextField calStDateMins = new JTextField(3);
-            JTextField calStDateDay = new JTextField(3);
-            JTextField calStDateMonth = new JTextField(3);
-            JTextField calStDateYear = new JTextField(5);
+            calStDateHours = new JSpinner(new SpinnerNumberModel(12, 0, 23, 1));
+            calStDateMins = new JSpinner(new SpinnerNumberModel(30, 0, 59, 1));
+            calStDateDay = new JSpinner(new SpinnerNumberModel(15, 1, 31, 1));
+            calStDateMonth = new JSpinner(new SpinnerNumberModel(2, 1, 12, 1));
+            calStDateYear = new JSpinner(new SpinnerNumberModel(2016, 1970, 3000, 1));
             calendarStartDate.add(calStDateLable);
             calendarStartDate.add(calStDateHours);
             calendarStartDate.add(new JLabel(" : "));
@@ -114,15 +161,15 @@ public class FormTaskmanager extends JFrame {
             calendarStartDate.add(calStDateYear);
             calendarStartDate.add(new JLabel("y"));
 
-        JPanel calendarEndDate = new JPanel();
+        calendarEndDate = new JPanel();
             calendarEndDate.setLayout(new FlowLayout());
             JLabel calEndDateLable = new JLabel("End date: ");
             calEndDateLable.setPreferredSize(calStDateLable.getPreferredSize());
-            JTextField calEndDateHours = new JTextField(3);
-            JTextField calEndDateMins = new JTextField(3);
-            JTextField calEndDateDay = new JTextField(3);
-            JTextField calEndDateMonth = new JTextField(3);
-            JTextField calEndDateYear = new JTextField(5);
+            calEndDateHours = new JSpinner(new SpinnerNumberModel(12, 0, 23, 1));
+            calEndDateMins = new JSpinner(new SpinnerNumberModel(30, 0, 59, 1));
+            calEndDateDay = new JSpinner(new SpinnerNumberModel(15, 1, 31, 1));
+            calEndDateMonth = new JSpinner(new SpinnerNumberModel(2, 1, 12, 1));
+            calEndDateYear = new JSpinner(new SpinnerNumberModel(2016, 1970, 3000, 1));
             calendarEndDate.add(calEndDateLable);
             calendarEndDate.add(calEndDateHours);
             calendarEndDate.add(new JLabel(" : "));
@@ -146,33 +193,33 @@ public class FormTaskmanager extends JFrame {
 
 
 
-        JPanel bottomPanel = new JPanel();
+        bottomPanel = new JPanel();
         bottomPanel.setLayout(new GridLayout(3, 2));
-            JPanel bottomButtonsPanel = new JPanel();
+            bottomButtonsPanel = new JPanel();
             bottomButtonsPanel.setLayout(new FlowLayout());
             bottomButtonsPanel.add(newButton);
             bottomButtonsPanel.add(editButton);
             bottomButtonsPanel.add(deleteButton);
             bottomButtonsPanel.add(clearButton);
         bottomPanel.add(bottomButtonsPanel);
-            JPanel bottomTitlePanel = new JPanel();
+            bottomTitlePanel = new JPanel();
             bottomTitlePanel.setLayout(new FlowLayout());
             bottomTitlePanel.add(new JLabel("Task's title: "));
             bottomTitlePanel.add(titleField);
             bottomTitlePanel.add(activeCheckBox);
         bottomPanel.add(bottomTitlePanel);
-            JPanel isRepeatPanel = new JPanel();
+            isRepeatPanel = new JPanel();
             isRepeatPanel.setLayout(new FlowLayout());
             isRepeatPanel.add(repeatableRadioButton);
             isRepeatPanel.add(nonrepeatableRadioButton);
         bottomPanel.add(isRepeatPanel);
-            JPanel startTimePanel = new JPanel();
+            startTimePanel = new JPanel();
             startTimePanel.setLayout(new FlowLayout());
-            JTextField editorStDateHours = new JTextField(3);
-            JTextField editorStDateMins = new JTextField(3);
-            JTextField editorStDateDay = new JTextField(3);
-            JTextField editorStDateMonth = new JTextField(3);
-            JTextField editorStDateYear = new JTextField(5);
+            editorStDateHours = new JSpinner(new SpinnerNumberModel(12, 0, 23, 1));
+            editorStDateMins = new JSpinner(new SpinnerNumberModel(30, 0, 59, 1));
+            editorStDateDay = new JSpinner(new SpinnerNumberModel(15, 1, 31, 1));
+            editorStDateMonth = new JSpinner(new SpinnerNumberModel(2, 1, 12, 1));
+            editorStDateYear = new JSpinner(new SpinnerNumberModel(2016, 1970, 3000, 1));
             startTimePanel.add(new JLabel("Start time: "));
             startTimePanel.add(editorStDateHours);
             startTimePanel.add(new JLabel(" : "));
@@ -185,13 +232,13 @@ public class FormTaskmanager extends JFrame {
             startTimePanel.add(editorStDateYear);
             startTimePanel.add(new JLabel("y"));
         bottomPanel.add(startTimePanel);
-            JPanel endTimePanel = new JPanel();
+            endTimePanel = new JPanel();
             endTimePanel.setLayout(new FlowLayout());
-            JTextField editorEndDateHours = new JTextField(3);
-            JTextField editorEndDateMins = new JTextField(3);
-            JTextField editorEndDateDay = new JTextField(3);
-            JTextField editorEndDateMonth = new JTextField(3);
-            JTextField editorEndDateYear = new JTextField(5);
+            editorEndDateHours = new JSpinner(new SpinnerNumberModel(12, 0, 23, 1));
+            editorEndDateMins = new JSpinner(new SpinnerNumberModel(30, 0, 59, 1));
+            editorEndDateDay = new JSpinner(new SpinnerNumberModel(15, 1, 31, 1));
+            editorEndDateMonth = new JSpinner(new SpinnerNumberModel(2, 1, 12, 1));
+            editorEndDateYear = new JSpinner(new SpinnerNumberModel(2016, 1970, 3000, 1));
             endTimePanel.add(new JLabel("End time: "));
             endTimePanel.add(editorEndDateHours);
             endTimePanel.add(new JLabel(" : "));
@@ -204,13 +251,13 @@ public class FormTaskmanager extends JFrame {
             endTimePanel.add(editorEndDateYear);
             endTimePanel.add(new JLabel("y"));
         bottomPanel.add(endTimePanel);
-            JPanel intervalTimePanel = new JPanel();
+            intervalTimePanel = new JPanel();
             intervalTimePanel.setLayout(new FlowLayout());
-            JTextField editorIntervalHours = new JTextField(3);
-            JTextField editorIntervalMins = new JTextField(3);
-            JTextField editorIntervalDay = new JTextField(3);
-            JTextField editorIntervalMonth = new JTextField(3);
-            JTextField editorIntervalYear = new JTextField(5);
+            editorIntervalHours = new JSpinner(new SpinnerNumberModel(0, 0, 23, 1));
+            editorIntervalMins = new JSpinner(new SpinnerNumberModel(0, 0, 59, 1));
+            editorIntervalDay = new JSpinner(new SpinnerNumberModel(0, 0, 31, 1));
+            editorIntervalMonth = new JSpinner(new SpinnerNumberModel(0, 0, 12, 1));
+            editorIntervalYear = new JSpinner(new SpinnerNumberModel(0, 0, 5, 1));
             intervalTimePanel.add(new JLabel("Execution interval: "));
             intervalTimePanel.add(editorIntervalMins);
             intervalTimePanel.add(new JLabel("m "));
@@ -224,20 +271,26 @@ public class FormTaskmanager extends JFrame {
             intervalTimePanel.add(new JLabel("y"));
         bottomPanel.add(intervalTimePanel);
 
+        ButtonGroup radios = new ButtonGroup();
+        radios.add(repeatableRadioButton);
+        radios.add(nonrepeatableRadioButton);
 
 
         contentMain.add(bottomPanel, BorderLayout.SOUTH);
         setContentPane(contentMain);
 
-        //setSize(750,500);
         pack();
         setResizable(false);
 
     }
+    public void startGUI() {
+        this.setVisible(true);
+    }
 
     public static void main(String[] args) {
+
             FormTaskmanager test = new FormTaskmanager();
-            test.setVisible(true);
+            test.startGUI();
     }
 }
 
