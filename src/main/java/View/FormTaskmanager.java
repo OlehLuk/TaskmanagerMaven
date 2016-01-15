@@ -1,5 +1,7 @@
 package View;
 
+import Model.TaskList;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
@@ -9,7 +11,8 @@ import java.util.Date;
 
 public class FormTaskmanager extends JFrame {
     //for lists of tasks
-    private JList allTabList;
+    DefaultListModel listModel = new DefaultListModel();
+    private JList allTabList = new JList(listModel);
 
 
     private JTabbedPane tabbedPane1 = new JTabbedPane(JTabbedPane.TOP);
@@ -100,7 +103,8 @@ public class FormTaskmanager extends JFrame {
         //allTasksTab creating
         allTasksTab = new JPanel();
         allTasksTab.setLayout(new BorderLayout());
-        allTabList = new JList(new Object[]{"A", "<html><font color = red>B", "C"});
+
+
         allTabList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         allTasksTab.add(new JScrollPane(allTabList), BorderLayout.CENTER);
 
@@ -233,11 +237,19 @@ public class FormTaskmanager extends JFrame {
         return this.editorStDate.getValue();
     };
 
+    public void setAllTasksList(TaskList list) {
+        for(int i = 0; i < list.size(); i++) {
+            String taskStr = list.getTask(i).toString();
+            this.listModel.addElement(taskStr);
+        }
+    }
+
     public static void main(String[] args) throws InterruptedException {
 
-            FormTaskmanager test = new FormTaskmanager();
-            test.startGUI();
-            //test.taskInfo.append(test.getStDate().getClass().toString());
+        FormTaskmanager test = new FormTaskmanager();
+        test.startGUI();
+        Thread.sleep(5000);
+        //test.taskInfo.append(test.getStDate().getClass().toString());
     }
 }
 

@@ -11,5 +11,9 @@ public class MainController {
     public MainController(MainModel model, MainView view) {
         this.model = model;
         this.view = view;
+        model.load();
+        view.showList(model.getList());
     }
+
+
 }

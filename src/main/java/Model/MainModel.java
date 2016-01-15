@@ -67,4 +67,7 @@ public class MainModel {
     }
 
 
+    public TaskList getList() {
+        return this.taskList;
+    }
 }
