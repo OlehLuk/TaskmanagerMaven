@@ -13,6 +13,7 @@ public class MainController {
         this.view = view;
         model.load();
         view.showList(model.getList());
+        view.showGUI();
     }
 
 
