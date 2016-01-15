@@ -224,14 +224,20 @@ public class FormTaskmanager extends JFrame {
         setResizable(false);
 
     }
+
     public void startGUI() {
         this.setVisible(true);
     }
 
-    public static void main(String[] args) {
+    public Object getStDate(){
+        return this.editorStDate.getValue();
+    };
+
+    public static void main(String[] args) throws InterruptedException {
 
             FormTaskmanager test = new FormTaskmanager();
             test.startGUI();
+            //test.taskInfo.append(test.getStDate().getClass().toString());
     }
 }
 
