@@ -100,12 +100,12 @@ public class ArrayTaskList extends TaskList{
     private class Itr implements Iterator<Task> {
         int current = 0;
         int returned = -1;
-        @Override
+
         public boolean hasNext() {
             return  (current < numberOfTasks);
         }
 
-        @Override
+
         public Task next() throws NoSuchElementException {
             if(current >= numberOfTasks) {
                 throw new NoSuchElementException();
@@ -115,7 +115,7 @@ public class ArrayTaskList extends TaskList{
             return taskList[returned];
         }
 
-        @Override
+
         public void remove() {
             if(returned < 0) {
                 throw new IllegalStateException();

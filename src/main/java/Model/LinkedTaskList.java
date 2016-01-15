@@ -124,12 +124,12 @@ public class LinkedTaskList extends TaskList{
         LinkedTaskListElement returned = null;
         int currentIndex = 0;
         int returnedIndex = -1;
-        @Override
+
         public boolean hasNext() {
             return  (currentIndex < size());
         }
 
-        @Override
+
         public Task next() throws NoSuchElementException {
             if(currentIndex >= size()) {
                 throw new NoSuchElementException();
@@ -141,7 +141,7 @@ public class LinkedTaskList extends TaskList{
             return returned.getInnerTask();
         }
 
-        @Override
+
         public void remove() {
             if(returnedIndex < 0) {
                 throw new IllegalStateException();
