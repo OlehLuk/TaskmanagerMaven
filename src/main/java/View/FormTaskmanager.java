@@ -3,6 +3,8 @@ package View;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class FormTaskmanager extends JFrame {
@@ -45,18 +47,11 @@ public class FormTaskmanager extends JFrame {
     //fields for reading time
 
     //start time
-    private JSpinner editorStDateHours;
-    private JSpinner editorStDateMins;
-    private JSpinner editorStDateDay;
-    private JSpinner editorStDateMonth;
-    private JSpinner editorStDateYear;
+    private JSpinner editorStDate;
+
 
     //end time
-    private JSpinner editorEndDateHours;
-    private JSpinner editorEndDateMins;
-    private JSpinner editorEndDateDay;
-    private JSpinner editorEndDateMonth;
-    private JSpinner editorEndDateYear;
+    private JSpinner editorEndDate;
 
     //interval
     private JSpinner editorIntervalHours;
@@ -66,17 +61,9 @@ public class FormTaskmanager extends JFrame {
     private JSpinner editorIntervalYear;
 
     //start date for calendar
-    private JSpinner calStDateHours ;
-    private JSpinner calStDateMins ;
-    private JSpinner calStDateDay ;
-    private JSpinner calStDateMonth;
-    private JSpinner calStDateYear;
+    private JSpinner calStDate;
     //end date for calendar
-    private JSpinner calEndDateHours;
-    private JSpinner calEndDateMins;
-    private JSpinner calEndDateDay;
-    private JSpinner calEndDateMonth;
-    private JSpinner calEndDateYear;
+    private JSpinner calEndDate;
 
     //checkbox to check whether task is active
     private JCheckBox activeCheckBox = new JCheckBox("Active");
@@ -144,43 +131,20 @@ public class FormTaskmanager extends JFrame {
         calendarStartDate = new JPanel();
             calendarStartDate.setLayout(new FlowLayout());
             JLabel calStDateLable = new JLabel("Start date: ");
-            calStDateHours = new JSpinner(new SpinnerNumberModel(12, 0, 23, 1));
-            calStDateMins = new JSpinner(new SpinnerNumberModel(30, 0, 59, 1));
-            calStDateDay = new JSpinner(new SpinnerNumberModel(15, 1, 31, 1));
-            calStDateMonth = new JSpinner(new SpinnerNumberModel(2, 1, 12, 1));
-            calStDateYear = new JSpinner(new SpinnerNumberModel(2016, 1970, 3000, 1));
+            calStDate = new JSpinner(new SpinnerDateModel(new Date(), new Date(0),
+                    new Date(new Date().getTime()+1000000000000000000L), Calendar.DAY_OF_WEEK));
             calendarStartDate.add(calStDateLable);
-            calendarStartDate.add(calStDateHours);
-            calendarStartDate.add(new JLabel(" : "));
-            calendarStartDate.add(calStDateMins);
-            calendarStartDate.add(new JLabel(", "));
-            calendarStartDate.add(calStDateDay);
-            calendarStartDate.add(new JLabel("d -"));
-            calendarStartDate.add(calStDateMonth);
-            calendarStartDate.add(new JLabel("m -"));
-            calendarStartDate.add(calStDateYear);
-            calendarStartDate.add(new JLabel("y"));
+            calendarStartDate.add(calStDate);
+
 
         calendarEndDate = new JPanel();
             calendarEndDate.setLayout(new FlowLayout());
             JLabel calEndDateLable = new JLabel("End date: ");
             calEndDateLable.setPreferredSize(calStDateLable.getPreferredSize());
-            calEndDateHours = new JSpinner(new SpinnerNumberModel(12, 0, 23, 1));
-            calEndDateMins = new JSpinner(new SpinnerNumberModel(30, 0, 59, 1));
-            calEndDateDay = new JSpinner(new SpinnerNumberModel(15, 1, 31, 1));
-            calEndDateMonth = new JSpinner(new SpinnerNumberModel(2, 1, 12, 1));
-            calEndDateYear = new JSpinner(new SpinnerNumberModel(2016, 1970, 3000, 1));
+            calEndDate = new JSpinner(new SpinnerDateModel(new Date(), new Date(0),
+                    new Date(new Date().getTime()+1000000000000000000L), Calendar.DAY_OF_WEEK));
             calendarEndDate.add(calEndDateLable);
-            calendarEndDate.add(calEndDateHours);
-            calendarEndDate.add(new JLabel(" : "));
-            calendarEndDate.add(calEndDateMins);
-            calendarEndDate.add(new JLabel(", "));
-            calendarEndDate.add(calEndDateDay);
-            calendarEndDate.add(new JLabel("d -"));
-            calendarEndDate.add(calEndDateMonth);
-            calendarEndDate.add(new JLabel("m -"));
-            calendarEndDate.add(calEndDateYear);
-            calendarEndDate.add(new JLabel("y"));
+            calendarEndDate.add(calEndDate);
 
         calendarDatesPanel.add(calendarStartDate);
         calendarDatesPanel.add(calendarEndDate);
@@ -215,41 +179,18 @@ public class FormTaskmanager extends JFrame {
         bottomPanel.add(isRepeatPanel);
             startTimePanel = new JPanel();
             startTimePanel.setLayout(new FlowLayout());
-            editorStDateHours = new JSpinner(new SpinnerNumberModel(12, 0, 23, 1));
-            editorStDateMins = new JSpinner(new SpinnerNumberModel(30, 0, 59, 1));
-            editorStDateDay = new JSpinner(new SpinnerNumberModel(15, 1, 31, 1));
-            editorStDateMonth = new JSpinner(new SpinnerNumberModel(2, 1, 12, 1));
-            editorStDateYear = new JSpinner(new SpinnerNumberModel(2016, 1970, 3000, 1));
+            editorStDate = new JSpinner(new SpinnerDateModel(new Date(), new Date(0),
+                    new Date(new Date().getTime()+1000000000000000000L), Calendar.DAY_OF_WEEK));
             startTimePanel.add(new JLabel("Start time: "));
-            startTimePanel.add(editorStDateHours);
-            startTimePanel.add(new JLabel(" : "));
-            startTimePanel.add(editorStDateMins);
-            startTimePanel.add(new JLabel(", "));
-            startTimePanel.add(editorStDateDay);
-            startTimePanel.add(new JLabel("d -"));
-            startTimePanel.add(editorStDateMonth);
-            startTimePanel.add(new JLabel("m -"));
-            startTimePanel.add(editorStDateYear);
-            startTimePanel.add(new JLabel("y"));
+            startTimePanel.add(editorStDate);
+
         bottomPanel.add(startTimePanel);
             endTimePanel = new JPanel();
             endTimePanel.setLayout(new FlowLayout());
-            editorEndDateHours = new JSpinner(new SpinnerNumberModel(12, 0, 23, 1));
-            editorEndDateMins = new JSpinner(new SpinnerNumberModel(30, 0, 59, 1));
-            editorEndDateDay = new JSpinner(new SpinnerNumberModel(15, 1, 31, 1));
-            editorEndDateMonth = new JSpinner(new SpinnerNumberModel(2, 1, 12, 1));
-            editorEndDateYear = new JSpinner(new SpinnerNumberModel(2016, 1970, 3000, 1));
+            editorEndDate = new JSpinner(new SpinnerDateModel(new Date(), new Date(0),
+                    new Date(new Date().getTime()+1000000000000000000L), Calendar.DAY_OF_WEEK));
             endTimePanel.add(new JLabel("End time: "));
-            endTimePanel.add(editorEndDateHours);
-            endTimePanel.add(new JLabel(" : "));
-            endTimePanel.add(editorEndDateMins);
-            endTimePanel.add(new JLabel(", "));
-            endTimePanel.add(editorEndDateDay);
-            endTimePanel.add(new JLabel("d -"));
-            endTimePanel.add(editorEndDateMonth);
-            endTimePanel.add(new JLabel("m -"));
-            endTimePanel.add(editorEndDateYear);
-            endTimePanel.add(new JLabel("y"));
+            endTimePanel.add(editorEndDate);
         bottomPanel.add(endTimePanel);
             intervalTimePanel = new JPanel();
             intervalTimePanel.setLayout(new FlowLayout());
