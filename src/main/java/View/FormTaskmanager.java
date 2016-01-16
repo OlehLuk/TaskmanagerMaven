@@ -340,6 +340,23 @@ public class FormTaskmanager extends JFrame {
         return allTabList.getSelectedIndex();
     }
 
+    public void updateFields(Task task) {
+        this.titleField.setText(task.getTitle());
+        this.activeCheckBox.setSelected(task.isActive());
+        this.repeatableRadioButton.setSelected(task.isRepeated());
+        this.taskInfo.setText(task.toString());
+        this.editorStDate.setValue(task.getStartTime());
+        this.editorEndDate.setValue(task.getEndTime());
+        int interval = (int) (task.getRepeatInterval() / 1000);
+        this.editorIntervalDay.setValue(interval / (60 * 60 * 24));
+        interval %= 60 * 60 * 24;
+        this.editorIntervalHours.setValue(interval / (60 * 60));
+        interval %= 3600;
+        this.editorIntervalMins.setValue(interval / 60);
+        interval %= 60;
+        this.editorIntervalSecs.setValue(interval);
+    }
+
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -347,13 +364,11 @@ public class FormTaskmanager extends JFrame {
         test.startGUI();
 
         System.out.println(test.titleField.getText());
-
-        test.deleteButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("| + " + test.allTabList.getSelectedIndex());
+        test.allTabList.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                System.out.println("| + " + test.getSelectedListItemIndex());
             }
         });
-
         SortedMap<Date, Set<Task>> calendarMap = new TreeMap<Date, Set<Task>>();
         Set<Task> set = new HashSet<Task>();
         set.add(new Task("title", new Date()));

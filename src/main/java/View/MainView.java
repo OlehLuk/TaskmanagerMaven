@@ -66,4 +66,8 @@ public class MainView {
     public int getSelectedListItemIndex() {
         return appWindow.getSelectedListItemIndex();
     }
+
+    public void updateFields(Task task) {
+        appWindow.updateFields(task);
+    }
 }

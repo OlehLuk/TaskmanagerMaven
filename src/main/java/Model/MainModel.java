@@ -71,6 +71,10 @@ public class MainModel {
         return this.taskList;
     }
 
+    public Task getTask(int index) {
+        return this.taskList.getTask(index);
+    }
+
     public int countTaskRepeatInterval(int[] taskRepeatInterval) {
         int resultInterval = taskRepeatInterval[0];
         resultInterval += taskRepeatInterval[1] * 60;
