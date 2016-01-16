@@ -1,6 +1,8 @@
 package Model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -227,14 +229,90 @@ public class Task implements Cloneable, Serializable{
 
     @Override
     public String toString() {
-        return "Task @" + this.hashCode() + " {" +
-                " title='" + title + '\'' +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
-                ", timeInterval=" + timeInterval +
-                ", active=" + active +
-                ", repeat=" + repeat +
-                '}';
+        StringBuilder taskToStringBuilder = new StringBuilder();
+
+        //write Task's title
+        taskToStringBuilder.append("\"");
+        taskToStringBuilder.append(this.getTitle().replace("\"", "\"\""));
+        taskToStringBuilder.append("\" ");
+
+        //create format for Task's time
+        DateFormat format = new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss.SSS]");
+
+        if(this.isRepeated()) {
+            taskToStringBuilder.append("from ");
+        }
+        else {
+            taskToStringBuilder.append("at ");
+        }
+
+        //write start time
+        taskToStringBuilder.append(format.format(this.getStartTime()));
+
+        //if Task is repeated write endtime and interval
+        if(this.isRepeated()) {
+            //write end time
+            taskToStringBuilder.append(" to ");
+            taskToStringBuilder.append(format.format(this.getEndTime()));
+            taskToStringBuilder.append(" every ");
+
+            //get interval of Task's execution in seconds
+            int interval = (int) this.getRepeatInterval() / 1000;
+            //count whole days
+            int days = interval / 86400;
+            //
+            interval %= 86400;
+            //start writing interval
+            taskToStringBuilder.append("[");
+            if(days > 0) {
+                taskToStringBuilder.append(days + " day");
+                if(days > 1) {
+                    taskToStringBuilder.append("s");
+                }
+                if(interval > 0) {
+                    taskToStringBuilder.append(" ");
+                }
+            }
+            int hours = interval / 3600;
+            interval %= 3600;
+            if(hours > 0) {
+                taskToStringBuilder.append(hours + " hour");
+                if(hours > 1) {
+                    taskToStringBuilder.append("s");
+                }
+                if(interval > 0) {
+                    taskToStringBuilder.append(" ");
+                }
+            }
+            int minutes = interval / 60;
+            interval %= 60;
+            if(minutes > 0) {
+                taskToStringBuilder.append(minutes + " minute");
+                if(minutes > 1) {
+                    taskToStringBuilder.append("s");
+                }
+                if(interval > 0) {
+                    taskToStringBuilder.append(" ");
+                }
+            }
+            int seconds = interval;
+            if(seconds > 0) {
+                taskToStringBuilder.append(seconds + " second");
+                if (seconds > 1) {
+                    taskToStringBuilder.append("s");
+                }
+            }
+            //finish writing interval
+            taskToStringBuilder.append("]");
+        }
+        //if Task is not active write 'inactive'
+        if(!this.isActive()) {
+            taskToStringBuilder.append(" inactive");
+        }
+
+
+        String taskToString = new String(taskToStringBuilder);
+        return taskToString;
     }
 
     @Override

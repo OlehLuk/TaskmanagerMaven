@@ -1,19 +1,24 @@
 package View;
 
+import Model.ArrayTaskList;
+import Model.Task;
 import Model.TaskList;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.Calendar;
-import java.util.Date;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.*;
 
 
 public class FormTaskmanager extends JFrame {
     //for lists of tasks
-    DefaultListModel listModel = new DefaultListModel();
-    private JList allTabList = new JList(listModel);
-
+    private JList allTabList = new JList();
+    DefaultListModel listModel;
 
     private JTabbedPane tabbedPane1 = new JTabbedPane(JTabbedPane.TOP);
 
@@ -38,7 +43,9 @@ public class FormTaskmanager extends JFrame {
     private JScrollPane calendarTableScroll;
 
 
+    //table for calendar and its model
     private JTable calendarTable;
+    private DefaultTableModel tableModel;
 
     //buttons
     private JButton searchButton = new JButton("Search");
@@ -57,11 +64,10 @@ public class FormTaskmanager extends JFrame {
     private JSpinner editorEndDate;
 
     //interval
+    private JSpinner editorIntervalSecs;
     private JSpinner editorIntervalHours;
     private JSpinner editorIntervalMins;
     private JSpinner editorIntervalDay;
-    private JSpinner editorIntervalMonth;
-    private JSpinner editorIntervalYear;
 
     //start date for calendar
     private JSpinner calStDate;
@@ -84,7 +90,7 @@ public class FormTaskmanager extends JFrame {
 
     public FormTaskmanager() {
         super("Taskmanager");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         contentMain = new JPanel();
         contentMain.setLayout(new BorderLayout());
@@ -104,6 +110,9 @@ public class FormTaskmanager extends JFrame {
         allTasksTab = new JPanel();
         allTasksTab.setLayout(new BorderLayout());
 
+        listModel = new DefaultListModel();
+        allTabList.setModel(listModel);
+
 
         allTabList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         allTasksTab.add(new JScrollPane(allTabList), BorderLayout.CENTER);
@@ -115,9 +124,9 @@ public class FormTaskmanager extends JFrame {
                 "Date",
                 "Tasks"
         };
-        String[][] data = {{"a", "b"}};
 
-        calendarTable = new JTable(data, columnNames);
+        tableModel = new DefaultTableModel(null, columnNames);
+        calendarTable = new JTable(tableModel);
         calendarTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         calendarTable.setPreferredScrollableViewportSize(new Dimension(100,150));
         //add table
@@ -130,7 +139,6 @@ public class FormTaskmanager extends JFrame {
         calendarDatesPanel = new JPanel();
         calendarDatesPanel.setLayout(new GridLayout(2,1));
 
-        //create SpinnerNumberModel model = new SpinnerNumberModel(500.0, 0.0, 1000.0, 0.625); ?
 
         calendarStartDate = new JPanel();
             calendarStartDate.setLayout(new FlowLayout());
@@ -199,26 +207,24 @@ public class FormTaskmanager extends JFrame {
             intervalTimePanel = new JPanel();
             intervalTimePanel.setLayout(new FlowLayout());
             editorIntervalHours = new JSpinner(new SpinnerNumberModel(0, 0, 23, 1));
+            editorIntervalSecs = new JSpinner(new SpinnerNumberModel(0, 0, 59, 1));
             editorIntervalMins = new JSpinner(new SpinnerNumberModel(0, 0, 59, 1));
             editorIntervalDay = new JSpinner(new SpinnerNumberModel(0, 0, 31, 1));
-            editorIntervalMonth = new JSpinner(new SpinnerNumberModel(0, 0, 12, 1));
-            editorIntervalYear = new JSpinner(new SpinnerNumberModel(0, 0, 5, 1));
             intervalTimePanel.add(new JLabel("Execution interval: "));
+            intervalTimePanel.add(editorIntervalSecs);
+            intervalTimePanel.add(new JLabel("sec "));
             intervalTimePanel.add(editorIntervalMins);
-            intervalTimePanel.add(new JLabel("m "));
+            intervalTimePanel.add(new JLabel("min "));
             intervalTimePanel.add(editorIntervalHours);
             intervalTimePanel.add(new JLabel("h "));
             intervalTimePanel.add(editorIntervalDay);
-            intervalTimePanel.add(new JLabel("d -"));
-            intervalTimePanel.add(editorIntervalMonth);
-            intervalTimePanel.add(new JLabel("m -"));
-            intervalTimePanel.add(editorIntervalYear);
-            intervalTimePanel.add(new JLabel("y"));
+            intervalTimePanel.add(new JLabel("days"));
         bottomPanel.add(intervalTimePanel);
 
         ButtonGroup radios = new ButtonGroup();
         radios.add(repeatableRadioButton);
         radios.add(nonrepeatableRadioButton);
+        nonrepeatableRadioButton.setSelected(true);
 
 
         contentMain.add(bottomPanel, BorderLayout.SOUTH);
@@ -233,24 +239,130 @@ public class FormTaskmanager extends JFrame {
         this.setVisible(true);
     }
 
-    public Object getStDate(){
-        return this.editorStDate.getValue();
+    public Date getStDate(){
+        return (Date) this.editorStDate.getValue();
+    };
+    public Date getEndDate(){
+        return (Date) this.editorEndDate.getValue();
+    };
+    public Date getCalendarStDate(){
+        return (Date) this.calStDate.getValue();
+    };
+    public Date getCalendarEndDate(){
+        return (Date) this.calEndDate.getValue();
     };
 
+    //method for showing list of all tasks
     public void setAllTasksList(TaskList list) {
+        this.listModel.clear();
         for(int i = 0; i < list.size(); i++) {
             String taskStr = list.getTask(i).toString();
             this.listModel.addElement(taskStr);
         }
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    //method for showing table of calendar
+    public void setCalendarTasksTable(SortedMap<Date, Set<Task>> calendarMap) {
+        this.tableModel.setDataVector(null, new String[] {"Date", "Tasks"});
 
-        FormTaskmanager test = new FormTaskmanager();
-        test.startGUI();
-        Thread.sleep(5000);
-        //test.taskInfo.append(test.getStDate().getClass().toString());
+        for (Map.Entry<Date, Set<Task>> entry : calendarMap.entrySet()) {
+            String[] tempTableRow = new String[2];
+            tempTableRow[0] = entry.getKey().toString();
+            Object[] taskArray =  entry.getValue().toArray();
+            StringBuilder tempStr = new StringBuilder();
+            for (int j = 0; j < taskArray.length; j++) {
+                tempStr.append(((Task)taskArray[j]).getTitle() );
+            }
+            tempTableRow[1] = new String(tempStr);
+            this.tableModel.addRow(tempTableRow);
+        }
     }
+
+    //clear method clears fields used to read info from user
+    public void clear() {
+        taskInfo.setText("");
+        titleField.setText("");
+        Date current = new Date();
+        calStDate.setValue(current);
+        calEndDate.setValue(current);
+        editorStDate.setValue(current);
+        editorEndDate.setValue(current);
+        editorIntervalDay.setValue(0);
+        editorIntervalHours.setValue(0);
+        editorIntervalMins.setValue(0);
+        activeCheckBox.setSelected(false);
+        titleField.setText("Task title");
+        allTabList.clearSelection();
+    }
+
+    //methods for adding ActionListeners  to buttons
+    public void addNewButtonActionListener(ActionListener t) {
+        newButton.addActionListener(t);
+    }
+
+    public void addSearchButtonActionListener(ActionListener t) {
+        searchButton.addActionListener(t);
+    }
+
+    public void addEditButtonActionListener(ActionListener t) {
+        editButton.addActionListener(t);
+    }
+
+    public void addDeleteButtonActionListener(ActionListener t) {
+        deleteButton.addActionListener(t);
+    }
+
+    public void addClearButtonActionListener(ActionListener t) {
+        clearButton.addActionListener(t);
+    }
+
+    //add list item selection listener
+    public void addListItemSelectedListener(ListSelectionListener t) {
+        allTabList.addListSelectionListener(t);
+    }
+
+    public boolean isTaskRepeated() {
+        return repeatableRadioButton.isSelected();
+    }
+
+    public String getTaskTitle() {
+        return titleField.getText();
+    }
+
+    public boolean isTaskActive() {
+        return activeCheckBox.isSelected();
+    }
+
+    public int[] getTaskRepeatInterval() {
+        int[] interval = new int[4];
+        interval[0] = (Integer) editorIntervalSecs.getValue();
+        interval[1] = (Integer) editorIntervalMins.getValue();
+        interval[2] = (Integer) editorIntervalHours.getValue();
+        interval[3] = (Integer) editorIntervalDay.getValue();
+        return interval;
+    }
+
+    public int getSelectedListItemIndex() {
+        return allTabList.getSelectedIndex();
+    }
+
+    public void updateFields(Task task) {
+        this.titleField.setText(task.getTitle());
+        this.activeCheckBox.setSelected(task.isActive());
+        this.repeatableRadioButton.setSelected(task.isRepeated());
+        this.taskInfo.setText(task.toString());
+        this.editorStDate.setValue(task.getStartTime());
+        this.editorEndDate.setValue(task.getEndTime());
+        int interval = (int) (task.getRepeatInterval() / 1000);
+        this.editorIntervalDay.setValue(interval / (60 * 60 * 24));
+        interval %= 60 * 60 * 24;
+        this.editorIntervalHours.setValue(interval / (60 * 60));
+        interval %= 3600;
+        this.editorIntervalMins.setValue(interval / 60);
+        interval %= 60;
+        this.editorIntervalSecs.setValue(interval);
+    }
+
 }
 
 

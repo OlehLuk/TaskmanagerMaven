@@ -30,6 +30,9 @@ public class Tasks {
                     taskSet.add(t);
                 }
                 answerMap.put(currentTimeKey, taskSet);
+                if(!t.isRepeated()){
+                    break;
+                }
                 currentTimeKey = new Date(currentTimeKey.getTime() + t.getRepeatInterval());
             }
         }
