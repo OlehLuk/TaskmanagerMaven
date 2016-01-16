@@ -18,7 +18,9 @@ public class ListElementSelectionListener implements ListSelectionListener{
 
     public void valueChanged(ListSelectionEvent e) {
         int index = view.getSelectedListItemIndex();
-        Task selectedTask = model.getTask(index);
-        view.updateFields(selectedTask);
+        if(index > -1) {
+            Task selectedTask = model.getTask(index);
+            view.updateFields(selectedTask);
+        }
     }
 }

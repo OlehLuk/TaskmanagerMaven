@@ -12,7 +12,7 @@ public class MainModel {
     File file = new File("tasks.txt");
 
     public void load() {
-        taskList = new LinkedTaskList();
+        taskList = new ArrayTaskList();
         try{
             TaskIO.readBinary(taskList,file);
         }
@@ -73,6 +73,9 @@ public class MainModel {
     }
 
     public Task getTask(int index) {
+        if(index < 0 || index > taskList.size() - 1) {
+            throw new IllegalArgumentException();
+        }
         return this.taskList.getTask(index);
     }
 

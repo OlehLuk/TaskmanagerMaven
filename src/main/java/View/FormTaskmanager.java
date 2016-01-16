@@ -292,6 +292,7 @@ public class FormTaskmanager extends JFrame {
         editorIntervalMins.setValue(0);
         activeCheckBox.setSelected(false);
         titleField.setText("Task title");
+        allTabList.clearSelection();
     }
 
     //methods for adding ActionListeners  to buttons
