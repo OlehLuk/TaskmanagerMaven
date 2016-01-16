@@ -20,6 +20,7 @@ public class DeleteButtonListener implements ActionListener {
         int indexSelected = view.getSelectedListItemIndex();
         if(indexSelected == -1) {
             //show message + log
+            view.showMessage("Task was not deleted. No Task was selected. Please select Task and try again.");
             return;
         }
         model.remove(indexSelected);

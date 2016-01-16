@@ -3,7 +3,9 @@ package View;
 
 import Model.Task;
 import Model.TaskList;
+import sun.security.pkcs11.P11Util;
 
+import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionListener;
 import java.util.Date;
@@ -12,6 +14,15 @@ import java.util.SortedMap;
 
 public class MainView {
     private FormTaskmanager appWindow = new FormTaskmanager();
+
+    public void showMessage(String string) {
+        JOptionPane.showMessageDialog(appWindow, string, "Attention", JOptionPane.WARNING_MESSAGE );
+        /*
+        JOptionPane pane = new JOptionPane(string, JOptionPane.WARNING_MESSAGE);
+        JDialog dialog = pane.createDialog(appWindow, "Attention!");
+        dialog.setVisible(true);
+        */
+    }
 
     public void showList(TaskList list) {
         this.appWindow.setAllTasksList(list);

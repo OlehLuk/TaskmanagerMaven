@@ -20,6 +20,7 @@ public class NewButtonListener implements ActionListener {
         String taskTitle = view.getTaskTitle();
         if(taskTitle.length() == 0) {
             //show message about error
+            view.showMessage("Task was not created. Title can not be empty. Please input title and try again.");
             return;
         }
         Date startTime = view.getTaskStartDate();
@@ -37,6 +38,8 @@ public class NewButtonListener implements ActionListener {
         catch (IllegalArgumentException exc) {
             //log
             //show message
+            view.showMessage("Task was not created. Invalid parameters were entered." +
+                    " Please correct parameters and try again.");
         }
 
         view.showList(model.getList());

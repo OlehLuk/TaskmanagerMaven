@@ -21,12 +21,14 @@ public class EditButtonListener implements ActionListener {
         int indexSelected = view.getSelectedListItemIndex();
         if(indexSelected == -1) {
             //show message + log that item is not selected
+            view.showMessage("Task was not edited. No Task was selected. Please select Task and try again.");
             return;
         }
         //read properties to change
         String taskTitle = view.getTaskTitle();
         if(taskTitle.length() == 0) {
             //show message about error ("can't change to empty title")
+            view.showMessage("Task was not edited. Title can not be empty. Please input title and try again.");
             return;
         }
         //read other properties
@@ -46,6 +48,9 @@ public class EditButtonListener implements ActionListener {
         catch (IllegalArgumentException exc) {
             //log
             //show message
+            view.showMessage("Task was not edited. Invalid parameters were entered." +
+                    " Please input correct parameters and try again.");
+            return;
         }
         //if creating was successful will remove old and refresh view
         model.remove(indexSelected);

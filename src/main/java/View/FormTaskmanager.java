@@ -363,33 +363,6 @@ public class FormTaskmanager extends JFrame {
         this.editorIntervalSecs.setValue(interval);
     }
 
-
-    public static void main(String[] args) throws InterruptedException {
-
-        final FormTaskmanager test = new FormTaskmanager();
-        test.startGUI();
-
-        System.out.println(test.titleField.getText());
-        test.allTabList.addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent e) {
-                System.out.println("| + " + test.getSelectedListItemIndex());
-            }
-        });
-        SortedMap<Date, Set<Task>> calendarMap = new TreeMap<Date, Set<Task>>();
-        Set<Task> set = new HashSet<Task>();
-        set.add(new Task("title", new Date()));
-        calendarMap.put(new Date(), set);
-        ArrayTaskList ar = new ArrayTaskList();
-        ar.add(new Task("1", new Date()));
-        ar.add(new Task("2", new Date()));
-        test.setAllTasksList(ar);
-        test.setCalendarTasksTable(calendarMap);
-        System.out.println(test.nonrepeatableRadioButton.isSelected());
-        System.out.println(test.repeatableRadioButton.isSelected());
-
-    }
-
-
 }
 
 
