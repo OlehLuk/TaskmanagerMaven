@@ -25,6 +25,5 @@ public class DeleteButtonListener implements ActionListener {
         }
         model.remove(indexSelected);
         view.showList(model.getList());
-        this.view.clear();
     }
 }

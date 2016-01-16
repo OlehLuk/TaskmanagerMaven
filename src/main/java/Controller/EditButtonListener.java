@@ -55,7 +55,6 @@ public class EditButtonListener implements ActionListener {
         //if creating was successful will remove old and refresh view
         model.remove(indexSelected);
         view.showList(model.getList());
-        this.view.clear();
 
     }
 }

@@ -43,6 +43,5 @@ public class NewButtonListener implements ActionListener {
         }
 
         view.showList(model.getList());
-        this.view.clear();
     }
 }
