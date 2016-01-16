@@ -1,12 +1,16 @@
 package View;
 
+import Model.ArrayTaskList;
 import Model.Task;
 import Model.TaskList;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
@@ -224,6 +228,7 @@ public class FormTaskmanager extends JFrame {
         ButtonGroup radios = new ButtonGroup();
         radios.add(repeatableRadioButton);
         radios.add(nonrepeatableRadioButton);
+        nonrepeatableRadioButton.setSelected(true);
 
 
         contentMain.add(bottomPanel, BorderLayout.SOUTH);
@@ -277,6 +282,23 @@ public class FormTaskmanager extends JFrame {
         }
     }
 
+    //clear method clears fields used to read info from user
+    public void clear() {
+        taskInfo.setText("");
+        titleField.setText("");
+        Date current = new Date();
+        calStDate.setValue(current);
+        calEndDate.setValue(current);
+        editorStDate.setValue(current);
+        editorEndDate.setValue(current);
+        editorIntervalDay.setValue(0);
+        editorIntervalMonth.setValue(0);
+        editorIntervalYear.setValue(0);
+        editorIntervalHours.setValue(0);
+        editorIntervalMins.setValue(0);
+        activeCheckBox.setSelected(false);
+        titleField.setText("Task title");
+    }
 
     //methods for adding ActionListeners  to buttons
     public void addNewButtonActionListener(ActionListener t) {
@@ -301,17 +323,19 @@ public class FormTaskmanager extends JFrame {
 
     public static void main(String[] args) throws InterruptedException {
 
-        FormTaskmanager test = new FormTaskmanager();
+        final FormTaskmanager test = new FormTaskmanager();
         test.startGUI();
         //System.out.println(test.calendarTable.getModel().getClass());
         SortedMap<Date, Set<Task>> calendarMap = new TreeMap<Date, Set<Task>>();
         Set<Task> set = new HashSet<Task>();
         set.add(new Task("title", new Date()));
         calendarMap.put(new Date(), set);
+        ArrayTaskList ar = new ArrayTaskList();
+        ar.add(new Task("1", new Date()));
+        ar.add(new Task("2", new Date()));
+        test.setAllTasksList(ar);
         test.setCalendarTasksTable(calendarMap);
-        test.setCalendarTasksTable(calendarMap);
-        //test.calendarTable.setVisible(false);
-        //test.taskInfo.append(test.getStDate().getClass().toString());
+
     }
 }
 

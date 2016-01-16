@@ -25,7 +25,7 @@ public class MainView {
     }
 
     public void clear() {
-
+        this.appWindow.clear();
     }
 
     public void addButtonListeners(ActionListener newButtonListener, ActionListener editButtonListener,
