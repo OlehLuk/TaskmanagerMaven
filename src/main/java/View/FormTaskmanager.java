@@ -270,7 +270,7 @@ public class FormTaskmanager extends JFrame {
             Object[] taskArray =  entry.getValue().toArray();
             StringBuilder tempStr = new StringBuilder();
             for (int j = 0; j < taskArray.length; j++) {
-                tempStr.append(taskArray[j].toString());
+                tempStr.append(((Task)taskArray[j]).getTitle() );
             }
             tempTableRow[1] = new String(tempStr);
             this.tableModel.addRow(tempTableRow);
