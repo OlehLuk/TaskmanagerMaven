@@ -13,8 +13,10 @@ public class MainController {
         this.view = view;
         model.load();
         view.showList(model.getList());
+        //add listeners here
+
         view.showGUI();
     }
 
-
+    //or write a method for adding them here
 }

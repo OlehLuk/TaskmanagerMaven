@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.*;
 
 
@@ -250,6 +251,7 @@ public class FormTaskmanager extends JFrame {
         return (Date) this.calEndDate.getValue();
     };
 
+    //method for showing list of all tasks
     public void setAllTasksList(TaskList list) {
         this.listModel.clear();
         for(int i = 0; i < list.size(); i++) {
@@ -258,6 +260,7 @@ public class FormTaskmanager extends JFrame {
         }
     }
 
+    //method for showing table of calendar
     public void setCalendarTasksTable(SortedMap<Date, Set<Task>> calendarMap) {
         this.tableModel.setDataVector(null, new String[] {"Date", "Tasks"});
 
@@ -272,6 +275,28 @@ public class FormTaskmanager extends JFrame {
             tempTableRow[1] = new String(tempStr);
             this.tableModel.addRow(tempTableRow);
         }
+    }
+
+
+    //methods for adding ActionListeners  to buttons
+    public void addNewButtonActionListener(ActionListener t) {
+        newButton.addActionListener(t);
+    }
+
+    public void addSearchButtonActionListener(ActionListener t) {
+        searchButton.addActionListener(t);
+    }
+
+    public void addEditButtonActionListener(ActionListener t) {
+        editButton.addActionListener(t);
+    }
+
+    public void addDeleteButtonActionListener(ActionListener t) {
+        deleteButton.addActionListener(t);
+    }
+
+    public void addClearButtonActionListener(ActionListener t) {
+        clearButton.addActionListener(t);
     }
 
     public static void main(String[] args) throws InterruptedException {
