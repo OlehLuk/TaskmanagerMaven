@@ -4,6 +4,7 @@ package Model;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Set;
 import java.util.SortedMap;
 
 public class MainModel {
@@ -62,7 +63,7 @@ public class MainModel {
         this.taskList.remove(this.taskList.getTask(index));
     }
 
-    public SortedMap getCalendar(Date start, Date end) {
+    public SortedMap<Date, Set<Task>> getCalendar(Date start, Date end) {
         return Tasks.calendar(this.taskList, start, end);
     }
 

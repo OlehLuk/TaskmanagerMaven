@@ -70,4 +70,12 @@ public class MainView {
     public void updateFields(Task task) {
         appWindow.updateFields(task);
     }
+
+    public Date getCalendarStartDate() {
+        return appWindow.getCalendarStDate();
+    }
+
+    public Date getCalendarEndDate() {
+        return appWindow.getCalendarEndDate();
+    }
 }
