@@ -62,4 +62,8 @@ public class MainView {
     public int[] getTaskRepeatInterval() {
         return appWindow.getTaskRepeatInterval();
     }
+
+    public int getSelectedListItemIndex() {
+        return appWindow.getSelectedListItemIndex();
+    }
 }

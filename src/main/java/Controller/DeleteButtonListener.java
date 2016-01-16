@@ -17,6 +17,12 @@ public class DeleteButtonListener implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-
+        //get selected list item index
+        //remove from model
+        //refresh list view
+        int indexSelected = view.getSelectedListItemIndex();
+        model.remove(indexSelected);
+        view.showList(model.getList());
+        this.view.clear();
     }
 }
