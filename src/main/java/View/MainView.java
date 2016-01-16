@@ -4,6 +4,7 @@ package View;
 import Model.Task;
 import Model.TaskList;
 
+import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.Set;
@@ -36,6 +37,10 @@ public class MainView {
         appWindow.addNewButtonActionListener(newButtonListener);
         appWindow.addEditButtonActionListener(editButtonListener);
         appWindow.addClearButtonActionListener(clearButtonListener);
+    }
+
+    public void addListListener(ListSelectionListener listListener) {
+        appWindow.addListItemSelectedListener(listListener);
     }
 
 

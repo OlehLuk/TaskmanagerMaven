@@ -315,6 +315,11 @@ public class FormTaskmanager extends JFrame {
         clearButton.addActionListener(t);
     }
 
+    //add list item selection listener
+    public void addListItemSelectedListener(ListSelectionListener t) {
+        allTabList.addListSelectionListener(t);
+    }
+
     public boolean isTaskRepeated() {
         return repeatableRadioButton.isSelected();
     }
