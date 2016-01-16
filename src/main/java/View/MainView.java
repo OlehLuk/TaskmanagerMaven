@@ -8,6 +8,7 @@ import sun.security.pkcs11.P11Util;
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowListener;
 import java.util.Date;
 import java.util.Set;
 import java.util.SortedMap;
@@ -93,5 +94,9 @@ public class MainView {
 
     public Date getCalendarEndDate() {
         return appWindow.getCalendarEndDate();
+    }
+
+    public void addWindowCloseListener(WindowListener t) {
+        appWindow.addWindowListener(t);
     }
 }

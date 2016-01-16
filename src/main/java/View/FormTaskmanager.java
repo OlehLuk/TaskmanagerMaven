@@ -90,7 +90,7 @@ public class FormTaskmanager extends JFrame {
 
     public FormTaskmanager() {
         super("Taskmanager");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
         contentMain = new JPanel();
         contentMain.setLayout(new BorderLayout());

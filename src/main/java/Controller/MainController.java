@@ -5,6 +5,7 @@ import View.MainView;
 
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowListener;
 
 
 public class MainController {
@@ -27,10 +28,11 @@ public class MainController {
         ActionListener deleteButtonListener = new DeleteButtonListener(view, model);
         ActionListener clearButtonListener = new ClearButtonListener(view);
         ListSelectionListener listListener = new ListElementSelectionListener(view, model);
-
+        WindowListener windowListener = new WindowCloseListener(view, model);
         view.addButtonListeners(newButtonListener, editButtonListener, searchButtonListener, deleteButtonListener,
                 clearButtonListener);
         view.addListListener(listListener);
+        view.addWindowCloseListener(windowListener);
     }
 
 
