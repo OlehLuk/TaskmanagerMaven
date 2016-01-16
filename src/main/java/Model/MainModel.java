@@ -72,9 +72,10 @@ public class MainModel {
     }
 
     public int countTaskRepeatInterval(int[] taskRepeatInterval) {
-        int resultInterval = taskRepeatInterval[0] * 60;
-        resultInterval += taskRepeatInterval[1] * 60 * 60;
-        resultInterval += taskRepeatInterval[2] * 60 * 60 * 24;
+        int resultInterval = taskRepeatInterval[0];
+        resultInterval += taskRepeatInterval[1] * 60;
+        resultInterval += taskRepeatInterval[2] * 60 * 60;
+        resultInterval += taskRepeatInterval[3] * 60 * 60 * 24;
         return resultInterval;
     }
 }

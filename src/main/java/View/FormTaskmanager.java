@@ -64,11 +64,10 @@ public class FormTaskmanager extends JFrame {
     private JSpinner editorEndDate;
 
     //interval
+    private JSpinner editorIntervalSecs;
     private JSpinner editorIntervalHours;
     private JSpinner editorIntervalMins;
     private JSpinner editorIntervalDay;
-    private JSpinner editorIntervalMonth;
-    private JSpinner editorIntervalYear;
 
     //start date for calendar
     private JSpinner calStDate;
@@ -208,21 +207,18 @@ public class FormTaskmanager extends JFrame {
             intervalTimePanel = new JPanel();
             intervalTimePanel.setLayout(new FlowLayout());
             editorIntervalHours = new JSpinner(new SpinnerNumberModel(0, 0, 23, 1));
+            editorIntervalSecs = new JSpinner(new SpinnerNumberModel(0, 0, 59, 1));
             editorIntervalMins = new JSpinner(new SpinnerNumberModel(0, 0, 59, 1));
             editorIntervalDay = new JSpinner(new SpinnerNumberModel(0, 0, 31, 1));
-            editorIntervalMonth = new JSpinner(new SpinnerNumberModel(0, 0, 12, 1));
-            editorIntervalYear = new JSpinner(new SpinnerNumberModel(0, 0, 5, 1));
             intervalTimePanel.add(new JLabel("Execution interval: "));
+            intervalTimePanel.add(editorIntervalSecs);
+            intervalTimePanel.add(new JLabel("sec "));
             intervalTimePanel.add(editorIntervalMins);
-            intervalTimePanel.add(new JLabel("m "));
+            intervalTimePanel.add(new JLabel("min "));
             intervalTimePanel.add(editorIntervalHours);
             intervalTimePanel.add(new JLabel("h "));
             intervalTimePanel.add(editorIntervalDay);
-            intervalTimePanel.add(new JLabel("d -"));
-            intervalTimePanel.add(editorIntervalMonth);
-            intervalTimePanel.add(new JLabel("m -"));
-            intervalTimePanel.add(editorIntervalYear);
-            intervalTimePanel.add(new JLabel("y"));
+            intervalTimePanel.add(new JLabel("days"));
         bottomPanel.add(intervalTimePanel);
 
         ButtonGroup radios = new ButtonGroup();
@@ -292,8 +288,6 @@ public class FormTaskmanager extends JFrame {
         editorStDate.setValue(current);
         editorEndDate.setValue(current);
         editorIntervalDay.setValue(0);
-        editorIntervalMonth.setValue(0);
-        editorIntervalYear.setValue(0);
         editorIntervalHours.setValue(0);
         editorIntervalMins.setValue(0);
         activeCheckBox.setSelected(false);
@@ -353,12 +347,11 @@ public class FormTaskmanager extends JFrame {
     }
 
     public int[] getTaskRepeatInterval() {
-        int[] interval = new int[5];
-        interval[0] = (Integer) editorIntervalMins.getValue();
-        interval[1] = (Integer) editorIntervalHours.getValue();
-        interval[2] = (Integer) editorIntervalDay.getValue();
-        interval[3] = (Integer) editorIntervalMonth.getValue();
-        interval[4] = (Integer) editorIntervalYear.getValue();
+        int[] interval = new int[4];
+        interval[0] = (Integer) editorIntervalSecs.getValue();
+        interval[1] = (Integer) editorIntervalMins.getValue();
+        interval[2] = (Integer) editorIntervalHours.getValue();
+        interval[3] = (Integer) editorIntervalDay.getValue();
         return interval;
     }
 }
