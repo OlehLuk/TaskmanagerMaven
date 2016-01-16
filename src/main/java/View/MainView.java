@@ -39,4 +39,27 @@ public class MainView {
     }
 
 
+    public boolean isRepeated() {
+        return appWindow.isTaskRepeated();
+    }
+
+    public String getTaskTitle() {
+        return appWindow.getTaskTitle();
+    }
+
+    public Date getTaskStartDate() {
+        return appWindow.getStDate();
+    }
+
+    public Date getTaskEndDate() {
+        return appWindow.getEndDate();
+    }
+
+    public boolean isTaskActive() {
+        return appWindow.isTaskActive();
+    }
+
+    public int[] getTaskRepeatInterval() {
+        return appWindow.getTaskRepeatInterval();
+    }
 }

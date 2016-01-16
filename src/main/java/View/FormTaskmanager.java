@@ -335,7 +335,31 @@ public class FormTaskmanager extends JFrame {
         ar.add(new Task("2", new Date()));
         test.setAllTasksList(ar);
         test.setCalendarTasksTable(calendarMap);
+        System.out.println(test.nonrepeatableRadioButton.isSelected());
+        System.out.println(test.repeatableRadioButton.isSelected());
 
+    }
+
+    public boolean isTaskRepeated() {
+        return repeatableRadioButton.isSelected();
+    }
+
+    public String getTaskTitle() {
+        return titleField.getText();
+    }
+
+    public boolean isTaskActive() {
+        return activeCheckBox.isSelected();
+    }
+
+    public int[] getTaskRepeatInterval() {
+        int[] interval = new int[5];
+        interval[0] = (Integer) editorIntervalMins.getValue();
+        interval[1] = (Integer) editorIntervalHours.getValue();
+        interval[2] = (Integer) editorIntervalDay.getValue();
+        interval[3] = (Integer) editorIntervalMonth.getValue();
+        interval[4] = (Integer) editorIntervalYear.getValue();
+        return interval;
     }
 }
 
