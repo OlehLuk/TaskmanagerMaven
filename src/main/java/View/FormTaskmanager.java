@@ -1,12 +1,13 @@
 package View;
 
+import Model.Task;
 import Model.TaskList;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 
 public class FormTaskmanager extends JFrame {
@@ -37,7 +38,9 @@ public class FormTaskmanager extends JFrame {
     private JScrollPane calendarTableScroll;
 
 
+    //table for calendar and its model
     private JTable calendarTable;
+    private DefaultTableModel tableModel;
 
     //buttons
     private JButton searchButton = new JButton("Search");
@@ -117,9 +120,9 @@ public class FormTaskmanager extends JFrame {
                 "Date",
                 "Tasks"
         };
-        String[][] data = {{"a", "b"}};
 
-        calendarTable = new JTable(data, columnNames);
+        tableModel = new DefaultTableModel(null, columnNames);
+        calendarTable = new JTable(tableModel);
         calendarTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         calendarTable.setPreferredScrollableViewportSize(new Dimension(100,150));
         //add table
@@ -132,7 +135,6 @@ public class FormTaskmanager extends JFrame {
         calendarDatesPanel = new JPanel();
         calendarDatesPanel.setLayout(new GridLayout(2,1));
 
-        //create SpinnerNumberModel model = new SpinnerNumberModel(500.0, 0.0, 1000.0, 0.625); ?
 
         calendarStartDate = new JPanel();
             calendarStartDate.setLayout(new FlowLayout());
@@ -238,7 +240,6 @@ public class FormTaskmanager extends JFrame {
     public Date getStDate(){
         return (Date) this.editorStDate.getValue();
     };
-
     public Date getEndDate(){
         return (Date) this.editorEndDate.getValue();
     };
@@ -250,9 +251,26 @@ public class FormTaskmanager extends JFrame {
     };
 
     public void setAllTasksList(TaskList list) {
+        this.listModel.clear();
         for(int i = 0; i < list.size(); i++) {
             String taskStr = list.getTask(i).toString();
             this.listModel.addElement(taskStr);
+        }
+    }
+
+    public void setCalendarTasksTable(SortedMap<Date, Set<Task>> calendarMap) {
+        this.tableModel.setDataVector(null, new String[] {"Date", "Tasks"});
+
+        for (Map.Entry<Date, Set<Task>> entry : calendarMap.entrySet()) {
+            String[] tempTableRow = new String[2];
+            tempTableRow[0] = entry.getKey().toString();
+            Object[] taskArray =  entry.getValue().toArray();
+            StringBuilder tempStr = new StringBuilder();
+            for (int j = 0; j < taskArray.length; j++) {
+                tempStr.append(taskArray[j].toString());
+            }
+            tempTableRow[1] = new String(tempStr);
+            this.tableModel.addRow(tempTableRow);
         }
     }
 
@@ -260,7 +278,14 @@ public class FormTaskmanager extends JFrame {
 
         FormTaskmanager test = new FormTaskmanager();
         test.startGUI();
-        Thread.sleep(5000);
+        //System.out.println(test.calendarTable.getModel().getClass());
+        SortedMap<Date, Set<Task>> calendarMap = new TreeMap<Date, Set<Task>>();
+        Set<Task> set = new HashSet<Task>();
+        set.add(new Task("title", new Date()));
+        calendarMap.put(new Date(), set);
+        test.setCalendarTasksTable(calendarMap);
+        test.setCalendarTasksTable(calendarMap);
+        //test.calendarTable.setVisible(false);
         //test.taskInfo.append(test.getStDate().getClass().toString());
     }
 }
