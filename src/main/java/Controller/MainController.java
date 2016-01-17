@@ -18,7 +18,6 @@ public class MainController {
                 if(!nowTasks.equals("")) {
                     view.showMessage("It is time to execute: \"" + nowTasks + "\" tasks.");
                 }
-                System.out.println("check");
 
                 try {
                     Thread.sleep(1000);
