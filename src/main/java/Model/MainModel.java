@@ -1,6 +1,8 @@
 package Model;
 
 
+import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -8,6 +10,7 @@ import java.util.Set;
 import java.util.SortedMap;
 
 public class MainModel {
+    private static final Logger log = Logger.getLogger(MainModel.class);
     private TaskList taskList;
     File file = new File("src\\main\\resources\\tasks.txt");
 
@@ -18,7 +21,10 @@ public class MainModel {
         }
         catch(IOException e){
             //log
+            log.warn("Saved data was not found. New data was created.");
+            return;
         }
+        log.info("Saved data was successfully loaded.");
     }
 
     public void save() throws IOException {
@@ -27,8 +33,10 @@ public class MainModel {
         }
         catch(IOException e){
             //log
+            log.warn("Data was not saved.");
             throw new IOException("Something went wrong. IOException occured");
         }
+        log.info("Saved data was successfully saved.");
     }
 
 
