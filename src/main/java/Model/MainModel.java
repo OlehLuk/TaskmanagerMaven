@@ -9,7 +9,7 @@ import java.util.SortedMap;
 
 public class MainModel {
     private TaskList taskList;
-    File file = new File("tasks.txt");
+    File file = new File("src\\main\\resources\\tasks.txt");
 
     public void load() {
         taskList = new ArrayTaskList();
