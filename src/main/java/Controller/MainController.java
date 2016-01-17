@@ -11,6 +11,24 @@ import java.awt.event.WindowListener;
 public class MainController {
     MainModel model;
     MainView view;
+    private Thread checker = new Thread() {
+        public void run() {
+            while (true) {
+                String nowTasks = model.getNow();
+                if(!nowTasks.equals("")) {
+                    view.showMessage("It is time to execute: \"" + nowTasks + "\" tasks.");
+                }
+                System.out.println("check");
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
+
 
     public MainController(MainModel model, MainView view) {
         this.model = model;
@@ -19,6 +37,15 @@ public class MainController {
         view.showList(model.getList());
         this.addAllListeners();
         view.showGUI();
+        this.checkPassed();
+        checker.start();
+    }
+
+    private void checkPassed() {
+        String passedTitles = model.getPassed();
+        if(!passedTitles.equals("")){
+            view.showMessage("Glad to see you again. Following tasks has passed: " + passedTitles + ".");
+        }
     }
 
     public void addAllListeners() {
