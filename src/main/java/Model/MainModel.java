@@ -94,4 +94,43 @@ public class MainModel {
         resultInterval += taskRepeatInterval[3] * 60 * 60 * 24;
         return resultInterval;
     }
+
+    public String getPassed() {
+        Date now = new Date();
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < taskList.size(); i ++) {
+            Task task = taskList.getTask(i);
+            if(task.nextTimeAfter(now) == null || (task.isRepeated()
+                    && task.nextTimeAfter(task.getStartTime()).before(now))) {
+
+                builder.append(task.getTitle());
+                if(i != taskList.size()) {
+                    builder.append(", ");
+                }
+            }
+        }
+        return new String(builder);
+    }
+
+    public String getNow() {
+        Date now = new Date();
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < taskList.size(); i++) {
+            Task t = taskList.getTask(i);
+            Date afterNow = t.nextTimeAfter(now);
+            if(afterNow == null) {
+                continue;
+            }
+            long diff = afterNow.getTime() - now.getTime();
+            if(diff > 0 && diff <= 1000) {
+                builder.append(t.getTitle());
+                if(i != taskList.size() - 1) {
+                    builder.append(", ");
+                }
+            }
+
+        }
+        return new String(builder);
+    }
 }
