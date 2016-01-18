@@ -63,12 +63,13 @@ public class TaskIO {
         for (int i = 0; i < sizeOfTaskList ; i++) {
             //read size(number of characters) of the title of the task
             int taskTitleSize = dataIn.readInt();
-            String taskTitle = "";
+            StringBuilder taskTitleBuilder = new StringBuilder();
             //read char's according to size of title that was read and add them to string
             for (int j = 0; j < taskTitleSize; j++) {
                 char c = dataIn.readChar();
-                taskTitle += c;
+                taskTitleBuilder.append(c);
             }
+            String taskTitle = new String(taskTitleBuilder);
             //read boolean value of field active of Task
             boolean taskActiveness = dataIn.readBoolean();
             //read repeat interval of the Task in seconds, not milliseconds

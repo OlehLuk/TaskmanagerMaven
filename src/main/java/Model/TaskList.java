@@ -63,22 +63,28 @@ public abstract class TaskList implements Cloneable, Iterable<Task>, Serializabl
 
     @Override
     public String toString() {
-        String string = this.getClass().getSimpleName() +" @" + this.hashCode() + " { \n";
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(this.getClass().getSimpleName());
+        stringBuilder.append(" @");
+        stringBuilder.append(this.hashCode());
+        stringBuilder.append(" { \n");
         for(int i = 0; i < this.size(); i++) {
-            string += this.getTask(i).toString() + "\n";
+            stringBuilder.append(this.getTask(i).toString());
+            stringBuilder.append("\n");
         }
-        string += "}";
-        return string;
+        stringBuilder.append("}");
+        return new String(stringBuilder);
     }
 
     @Override
     public int hashCode() {
-        String string = "";
+        StringBuilder stringBuilder = new StringBuilder();
         for(int i = 0; i < this.size(); i++) {
-            string += this.getTask(i).toString() + "\n";
+            stringBuilder.append(this.getTask(i).toString());
+            stringBuilder.append("\n");
         }
 
-        return string.hashCode();
+        return new String(stringBuilder).hashCode();
     }
 
     @Override

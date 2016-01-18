@@ -2,6 +2,7 @@ package Controller;
 
 import Model.MainModel;
 import View.MainView;
+import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.event.WindowEvent;
@@ -11,10 +12,12 @@ import java.io.IOException;
 public class WindowCloseListener implements WindowListener {
     MainView view;
     MainModel model;
+    private static final Logger log = Logger.getLogger(WindowListener.class);
 
     public WindowCloseListener(MainView view, MainModel model) {
         this.view = view;
         this.model = model;
+        log.debug("WindowCloseListener created.");
     }
 
     public void windowOpened(WindowEvent e) {
@@ -38,6 +41,7 @@ public class WindowCloseListener implements WindowListener {
                     return;
                 }
             }
+            log.info("Program was ended.");
             e.getWindow().setVisible(false);
             System.exit(0);
         }
