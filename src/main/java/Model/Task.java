@@ -53,7 +53,7 @@ public class Task implements Cloneable, Serializable{
      * @throws IllegalArgumentException
      */
     public Task(String title, Date start, Date end, int interval) throws IllegalArgumentException {
-        if(start == null || end == null) {
+        if(start == null || end == null || end.before(start) ||start.equals(end)) {
             throw new IllegalArgumentException("Start and/or end time can not be null");
         }
         if(interval <= 0) {
