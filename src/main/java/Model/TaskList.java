@@ -5,6 +5,14 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Iterator;
 
+/**
+ *  TaskList is public abstract class that represents list of tasks in task manager.
+ *  Declare methods of TaskLists
+ *  @author Oleh
+ *  @version 0.9
+ *  @since 1.8
+ */
+
 public abstract class TaskList implements Cloneable, Iterable<Task>, Serializable{
 
     /**
@@ -61,6 +69,10 @@ public abstract class TaskList implements Cloneable, Iterable<Task>, Serializabl
         return answer;
     }
 
+    /**
+     * Overrides Object's method toString().
+     * @return String that represents this.
+     */
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -76,6 +88,10 @@ public abstract class TaskList implements Cloneable, Iterable<Task>, Serializabl
         return new String(stringBuilder);
     }
 
+    /**
+     * Overrides Object's method hashCode().
+     * @return int value that is hashcode of this.
+     */
     @Override
     public int hashCode() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -87,6 +103,12 @@ public abstract class TaskList implements Cloneable, Iterable<Task>, Serializabl
         return new String(stringBuilder).hashCode();
     }
 
+    /**
+     * Overrides Object's method equels. Compares this with Object o.
+     * If they are equals return true, else return false
+     * @param o containes object we compare this with
+     * @return boolean value that shows whether this and o are equals
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

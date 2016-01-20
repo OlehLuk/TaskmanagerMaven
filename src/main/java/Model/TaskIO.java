@@ -7,9 +7,25 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
+/**
+ * TaskIO is public class that contains methods of TaskList's Output/Input.
+ * Static methods allows write/read TaskLists to Binary and Symbol streams.
+ *
+ * @author Oleh
+ * @version 0.9
+ * @since 1.8
+ */
+
 
 public class TaskIO {
     //записує задачі із списку у потік у бінарному форматі, описаному нижче.
+
+    /**
+     * Static methods that allows write TaskList to binary stream.
+     * @param tasks contains information about processed TaskList
+     * @param out contains information about BinaryStream processed TaskList is written in
+     * @throws IOException
+     */
     public static void write(TaskList tasks, OutputStream out) throws IOException {
         //cover abstract InputStream with DataInput to simplify reading
         DataOutputStream dataOut = new DataOutputStream(out);
@@ -53,6 +69,13 @@ public class TaskIO {
     }
 
     //зчитує задачі із потоку у даний список задач.
+
+    /**
+     * Static methods that allows read TaskList from binary stream.
+     * @param tasks contains information about processed TaskList
+     * @param in contains information about BinaryStream processed TaskList is read out
+     * @throws IOException
+     */
     public static void read(TaskList tasks, InputStream in) throws IOException {
         //cover abstract InputStream with DataInput to simplify reading
         DataInputStream dataIn = new DataInputStream(in);
@@ -104,6 +127,13 @@ public class TaskIO {
     }
 
     //записує задачі із списку у файл.
+
+    /**
+     * Static methods that allows write TaskList to file in binary format.
+     * @param tasks contains information about processed TaskList
+     * @param file contains information about File processed TaskList is written in
+     * @throws IOException
+     */
     static void writeBinary(TaskList tasks, File file) throws IOException {
         FileOutputStream fileOut = new FileOutputStream(file);
         write(tasks, fileOut);
@@ -111,6 +141,13 @@ public class TaskIO {
     }
 
     //зчитує задачі із файлу у список задач.
+
+    /**
+     * Static methods that allows read TaskList from file in binary format.
+     * @param tasks contains information about processed TaskList
+     * @param file contains information about File processed TaskList is read out
+     * @throws IOException
+     */
     static void readBinary(TaskList tasks, File file) throws IOException {
         FileInputStream fileIn = new FileInputStream(file);
         read(tasks, fileIn);
@@ -119,6 +156,12 @@ public class TaskIO {
 
 
     //записує задачі зі списку у потік в текстовому форматі, описаному нижче.
+    /**
+     * Static methods that allows write TaskList to symbol stream.
+     * @param tasks contains information about processed TaskList
+     * @param out contains information about SymbolStream processed TaskList is written in
+     * @throws IOException
+     */
     public static void write(TaskList tasks, Writer out) throws IOException {
         //wrap Writer with BufferedWriter
         BufferedWriter outStream = new BufferedWriter(out);
@@ -219,6 +262,12 @@ public class TaskIO {
     }
 
     //зчитує задачі із потоку у список.
+    /**
+     * Static methods that allows read TaskList from symbol stream.
+     * @param tasks contains information about processed TaskList
+     * @param in contains information about SymbolStream processed TaskList is read out
+     * @throws IOException
+     */
     public static void read(TaskList tasks, Reader in) throws IOException, ParseException {
         BufferedReader inStream = new BufferedReader(in);
         String taskStr;
@@ -320,6 +369,12 @@ public class TaskIO {
     }
 
     //записує задачі у файл у текстовому форматі
+    /**
+     * Static methods that allows write TaskList to file in symbol format.
+     * @param tasks contains information about processed TaskList
+     * @param file contains information about File processed TaskList is written in
+     * @throws IOException
+     */
     public static void writeText(TaskList tasks, File file) throws IOException {
         FileWriter fileOut = new FileWriter(file);
         write(tasks, fileOut);
@@ -327,6 +382,12 @@ public class TaskIO {
     }
 
     //зчитує задачі із файлу у текстовому вигляді.
+    /**
+     * Static methods that allows read TaskList from file in symbol format.
+     * @param tasks contains information about processed TaskList
+     * @param file contains information about File processed TaskList is read out
+     * @throws IOException
+     */
     public static void readText(TaskList tasks, File file) throws IOException, ParseException {
         FileReader fileIn = new FileReader(file);
         read(tasks, fileIn);

@@ -14,6 +14,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
+/**
+ * FormTaskmanager is public class to represent main window (JFrame) of task manager
+ * Contains methods for changing this window.
+ *
+ * @author Oleh
+ * @version 0.9
+ * @since 1.8
+ *
+ */
+
 
 public class FormTaskmanager extends JFrame {
     //for lists of tasks
@@ -88,6 +98,9 @@ public class FormTaskmanager extends JFrame {
     private JRadioButton nonrepeatableRadioButton = new JRadioButton("nonrepeatable Task");
 
 
+    /**
+     * Class constructor. Creates object of FormTaskmanager
+     */
     public FormTaskmanager() {
         super("Taskmanager");
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -235,24 +248,45 @@ public class FormTaskmanager extends JFrame {
 
     }
 
-    public void startGUI() {
-        this.setVisible(true);
-    }
 
+    /**
+     * Gets value of task's Start Date inputed in form
+     * @return Date value of start time of task's execution
+     */
     public Date getStDate(){
         return (Date) this.editorStDate.getValue();
     };
+
+    /**
+     * Gets value of task's End Date inputed in form
+     * @return Date value of end time of task's execution
+     */
     public Date getEndDate(){
         return (Date) this.editorEndDate.getValue();
     };
+
+    /**
+     * Gets value of Calendar Start Date inputed in form
+     * @return Date value of start time of calendar's period
+     */
     public Date getCalendarStDate(){
         return (Date) this.calStDate.getValue();
     };
+
+    /**
+     * Gets value of Calendar End Date inputed in form
+     * @return Date value of end time of calendar's period
+     */
     public Date getCalendarEndDate(){
         return (Date) this.calEndDate.getValue();
     };
 
     //method for showing list of all tasks
+
+    /**
+     * Shows list of all tasks in form
+     * @param list TaskList object that contains information about list of tasks that should be showed
+     */
     public void setAllTasksList(TaskList list) {
         this.listModel.clear();
         for(int i = 0; i < list.size(); i++) {
@@ -262,6 +296,12 @@ public class FormTaskmanager extends JFrame {
     }
 
     //method for showing table of calendar
+
+    /**
+     * Shows calendar in form
+     * @param calendarMap SortedMap<Date, Set<Task>> object that
+     *                    contains information about calendar that should be showed
+     */
     public void setCalendarTasksTable(SortedMap<Date, Set<Task>> calendarMap) {
         this.tableModel.setDataVector(null, new String[] {"Date", "Tasks"});
 
@@ -279,6 +319,10 @@ public class FormTaskmanager extends JFrame {
     }
 
     //clear method clears fields used to read info from user
+
+    /**
+     * Clears all input fields at form
+     */
     public void clear() {
         taskInfo.setText("");
         titleField.setText("");
@@ -296,43 +340,84 @@ public class FormTaskmanager extends JFrame {
     }
 
     //methods for adding ActionListeners  to buttons
+    /**
+     * Adds listener for new button
+     * @param t contains information about listener
+     */
     public void addNewButtonActionListener(ActionListener t) {
         newButton.addActionListener(t);
     }
 
+    /**
+     * Adds listener for search button
+     * @param t contains information about listener
+     */
     public void addSearchButtonActionListener(ActionListener t) {
         searchButton.addActionListener(t);
     }
 
+    /**
+     * Adds listener for edit button
+     * @param t contains information about listener
+     */
     public void addEditButtonActionListener(ActionListener t) {
         editButton.addActionListener(t);
     }
 
+    /**
+     * Adds listener for delete button
+     * @param t contains information about listener
+     */
     public void addDeleteButtonActionListener(ActionListener t) {
         deleteButton.addActionListener(t);
     }
 
+    /**
+     * Adds listener for clear button
+     * @param t contains information about listener
+     */
     public void addClearButtonActionListener(ActionListener t) {
         clearButton.addActionListener(t);
     }
 
     //add list item selection listener
+    /**
+     * Adds listener for list
+     * @param t contains information about listener
+     */
     public void addListItemSelectedListener(ListSelectionListener t) {
         allTabList.addListSelectionListener(t);
     }
 
+    /**
+     * Gets value of radio buttons that describes whether inputed task is repeated
+     * @return boolean value. If described input task is repeated - returns true, else - false.
+     */
     public boolean isTaskRepeated() {
         return repeatableRadioButton.isSelected();
     }
 
+    /**
+     * Gets value of text field that describes inputed task's title
+     * @return String value of inputed title
+     */
     public String getTaskTitle() {
         return titleField.getText();
     }
 
+    /**
+     * Gets value of checkbox that describes task's activeness
+     * @return boolean value. If described input task is active - returns true, else - false.
+     */
     public boolean isTaskActive() {
         return activeCheckBox.isSelected();
     }
 
+    /**
+     * Gets values of text fields that describe task's repeat interval
+     * @return array that contains information about task's repeat interval. In format:
+     * 0 element of array - number of days, 1 - hours, 2 - minutes, 3 - seconds
+     */
     public int[] getTaskRepeatInterval() {
         int[] interval = new int[4];
         interval[0] = (Integer) editorIntervalSecs.getValue();
@@ -342,10 +427,18 @@ public class FormTaskmanager extends JFrame {
         return interval;
     }
 
+    /**
+     * Getter for index of selected element of all tasks list
+     * @return int value of index of selected list element
+     */
     public int getSelectedListItemIndex() {
         return allTabList.getSelectedIndex();
     }
 
+    /**
+     * Update all input fields according to given Task parameter
+     * @param task contains information about task that should be showed
+     */
     public void updateFields(Task task) {
         this.titleField.setText(task.getTitle());
         this.activeCheckBox.setSelected(task.isActive());

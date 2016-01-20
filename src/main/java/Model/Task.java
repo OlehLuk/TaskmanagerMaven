@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  * Task is public class to represent tasks in task manager
  *
- * @author Olehe
+ * @author Oleh
  * @version 0.9
  * @since 1.8
  *
@@ -183,7 +183,7 @@ public class Task implements Cloneable, Serializable{
      * @param current contains information about time we are looking the next execution after
      * @return time of the first execution after current or -1 if it wasn't found
      */
-    //
+
     public Date nextTimeAfter(Date current) {
         if(current == null || !this.active || this.endTime.before( current) || this.endTime.equals(current)) {
             return null;
@@ -200,6 +200,11 @@ public class Task implements Cloneable, Serializable{
         return null;
     }
 
+    /**
+     * Overrides Object's method equels. Compares this with Object o. If they are equals return true, else return false
+     * @param o containes object we compare this with
+     * @return boolean value that shows whether this and o are equals
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -213,6 +218,10 @@ public class Task implements Cloneable, Serializable{
                 Objects.equals(title, task.title);
     }
 
+    /**
+     * Overrides Object's method hashCode().
+     * @return int value that is hashcode of this.
+     */
     @Override
     public int hashCode() {
         //return Objects.hash(startTime, endTime, timeInterval, title, active, repeat);
@@ -227,6 +236,10 @@ public class Task implements Cloneable, Serializable{
         return string.hashCode();
     }
 
+    /**
+     * Overrides Object's method toString().
+     * @return String that represents this.
+     */
     @Override
     public String toString() {
         StringBuilder taskToStringBuilder = new StringBuilder();
@@ -315,6 +328,11 @@ public class Task implements Cloneable, Serializable{
         return taskToString;
     }
 
+    /**
+     * Overrides Object's method clone(). Uses clone() of superclass.
+     * @return Task object that is independent copy of this.
+     * @throws CloneNotSupportedException
+     */
     @Override
     public Task clone() throws CloneNotSupportedException {
         Task task = (Task) super.clone();
