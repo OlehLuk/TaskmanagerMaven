@@ -4,6 +4,13 @@ package Model;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/**
+ *  ArrayTaskList is public class to represent list of tasks in task manager. Realisation based on array.
+ *  @author Oleh
+ *  @version 0.9
+ *  @since 1.8
+ */
+
 public class ArrayTaskList extends TaskList{
 
     private Task[] taskList = new Task[10];
@@ -31,7 +38,7 @@ public class ArrayTaskList extends TaskList{
 
 
     /**
-     * Removes certain Task given as task parameter from th List
+     * Removes certain Task given as task parameter from the List
      * @param task contains information about Task we remove
      * @return true if operation was successful and false if not
      */
@@ -80,6 +87,11 @@ public class ArrayTaskList extends TaskList{
     }
 
 
+    /**
+     * Overrides Object's method clone(). Uses clone() of superclass.
+     * @return ArrayTaskList object that is independent copy of this.
+     * @throws CloneNotSupportedException
+     */
     @Override
     public ArrayTaskList clone() throws CloneNotSupportedException {
         ArrayTaskList cloned = (ArrayTaskList) super.clone();
@@ -92,11 +104,18 @@ public class ArrayTaskList extends TaskList{
         return cloned;
     }
 
+    /**
+     * Implements Iterable interface. Returns object of inner class that implements interface Iterator<Task>
+     * @return object of interface Iterator<Task>
+     */
 
     public Iterator<Task> iterator() {
         return new Itr();
     }
 
+    /**
+     * Inner class that represents realization of iterator for that class
+     */
     private class Itr implements Iterator<Task> {
         int current = 0;
         int returned = -1;
