@@ -9,17 +9,34 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 
+/**
+ * EditButtonListener is a public class to represent listener of "edit" button
+ *
+ * @author Oleh
+ * @version 0.9
+ * @since 1.8
+ */
+
 public class EditButtonListener implements ActionListener {
     MainView view;
     MainModel model;
     private static final Logger log = Logger.getLogger(EditButtonListener.class);
 
+    /**
+     * Class constructor
+     * @param view contains information about MainView object connected with listened button
+     * @param model contains information about MainModel object connected with listened button
+     */
     public EditButtonListener(MainView view, MainModel model) {
         this.view = view;
         this.model = model;
         log.debug("EditButtonListener created.");
     }
 
+    /**
+     * Method that implements interface ActionListener. Contains actions that are done when button is pushed
+     * @param e contains information about button event
+     */
     public void actionPerformed(ActionEvent e) {
         int indexSelected = view.getSelectedListItemIndex();
         if(indexSelected == -1) {

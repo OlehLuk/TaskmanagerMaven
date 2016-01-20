@@ -8,17 +8,34 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
 
+/**
+ * NewButtonListener is a public class to represent listener of "new" button
+ *
+ * @author Oleh
+ * @version 0.9
+ * @since 1.8
+ */
+
 public class NewButtonListener implements ActionListener {
     MainView view;
     MainModel model;
     private static final Logger log = Logger.getLogger(NewButtonListener.class);
 
+    /**
+     * Class constructor
+     * @param view contains information about MainView object connected with listened button
+     * @param model contains information about MainModel object connected with listened button
+     */
     public NewButtonListener(MainView view, MainModel model) {
         this.view = view;
         this.model = model;
         log.debug("NewButtonListener created.");
     }
 
+    /**
+     * Method that implements interface ActionListener. Contains actions that are done when button is pushed
+     * @param e contains information about button event
+     */
     public void actionPerformed(ActionEvent e) {
         String taskTitle = view.getTaskTitle();
         if(taskTitle.length() == 0) {

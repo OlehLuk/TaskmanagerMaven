@@ -8,6 +8,15 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowListener;
 
+/**
+ * MainController is public class to represent Controller part of MVC in task manager
+ * Contains methods for program flow control
+ *
+ * @author Oleh
+ * @version 0.9
+ * @since 1.8
+ *
+ */
 
 public class MainController {
     MainModel model;
@@ -36,6 +45,11 @@ public class MainController {
     };
 
 
+    /**
+     * Class constructor
+     * @param view contains information about MainView object
+     * @param model contains information about MainModel object
+     */
     public MainController(MainModel model, MainView view) {
         log.info("Program was started");
         this.model = model;
@@ -53,6 +67,9 @@ public class MainController {
         checker.start();
     }
 
+    /**
+     * Finds tasks that have passed at the moment and shows message if there are some passed tasks.
+     */
     private void checkPassed() {
         String passedTitles = model.getPassed();
         if(!passedTitles.equals("")){
@@ -64,6 +81,9 @@ public class MainController {
         }
     }
 
+    /**
+     * Adds all needed listeners to View that is connected with this.
+     */
     public void addAllListeners() {
         ActionListener newButtonListener = new NewButtonListener(view, model);
         ActionListener editButtonListener = new EditButtonListener(view, model);
